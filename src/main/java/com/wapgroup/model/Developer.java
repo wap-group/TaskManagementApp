@@ -12,11 +12,12 @@ public class Developer extends User {
         this.team = team;
     }
 
-    public Developer(String fName, String lName, String empId,
+    public Developer(String fName, String lName, int empId,
                      String password, Address address, Role role,
-                     List<Task> taskList, Team team)
+                     List<Task> taskList, Team team, String phone, String email)
     {
-        super(fName, lName, empId, password, address, role);
+        super(fName, lName, empId, password,
+                address, role, phone, email);
         this.taskList = taskList;
         this.team = team;
     }

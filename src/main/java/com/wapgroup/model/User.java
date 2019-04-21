@@ -4,15 +4,18 @@ public class User {
 
     protected String fName;
     protected String lName;
-    protected String empId;
+    protected int empId;
     protected String password;
     protected Address address;
     protected Role role;
+    protected String phone;
+    protected String email;
 
     public User(){}
 
-    public User(String fName, String lName, String empId,
-                String password, Address address, Role role)
+    public User(String fName, String lName, int empId,
+                String password, Address address, Role role,
+                String phone, String email)
     {
         this.fName = fName;
         this.lName = lName;
@@ -20,6 +23,8 @@ public class User {
         this.password = password;
         this.address = address;
         this.role = role;
+        this.phone = phone;
+        this.email = email;
     }
 
     public String getfName() {
@@ -38,11 +43,11 @@ public class User {
         this.lName = lName;
     }
 
-    public String getEmpId() {
+    public int getEmpId() {
         return empId;
     }
 
-    public void setEmpId(String empId) {
+    public void setEmpId(int empId) {
         this.empId = empId;
     }
 
@@ -68,5 +73,21 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -5,43 +5,45 @@ import java.util.Date;
 
 public class Task {
 
-    private String taskId;
-    private String teamName;
+    private int taskId;
+    private String taskName;
     private Date dueDate;
     private int priority;
     private Catagory catagory;
     private String description;
     private Status status;
+    private Date taskAssigned;
 
     public Task(){}
 
-    public Task(String taskId, String teamName, Date dueDate,
+    public Task(int taskId, String taskName, Date dueDate,
                 int priority, Catagory catagory, String description,
-                Status status)
+                Status status, Date taskAssigned)
     {
         this.taskId = taskId;
-        this.teamName = teamName;
+        this.taskName = taskName;
         this.dueDate = dueDate;
         this.priority = priority;
         this.catagory = catagory;
         this.description = description;
         this.status = status;
+        this.taskAssigned = taskAssigned;
     }
 
-    public String getTaskId() {
+    public int getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public String gettaskName() {
+        return taskName;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
+    public void settaskName(String taskName) {
+        this.taskName = taskName;
     }
 
     public Date getDueDate() {
@@ -82,5 +84,13 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Date getTaskAssigned() {
+        return taskAssigned;
+    }
+
+    public void setTaskAssigned(Date taskAssigned) {
+        this.taskAssigned = taskAssigned;
     }
 }

@@ -1,3 +1,9 @@
+/*
+ $('form').serializeArray(): coverts a form to an array
+ $('form').toObject(): converts a form into an object (value, pair)  with properties reflecting the names of the field in the form.
+
+ */
+
 usersController = function() {
 
 	function errorLogger(errorCode, errorMessage) {
