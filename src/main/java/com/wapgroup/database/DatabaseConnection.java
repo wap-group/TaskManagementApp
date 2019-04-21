@@ -18,7 +18,7 @@ public class DatabaseConnection {
         return instance;
     }
 
-    public void connectDB(){
+    private void connectDB(){
 
         try{
 
