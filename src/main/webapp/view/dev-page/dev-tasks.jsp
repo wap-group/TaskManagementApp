@@ -98,15 +98,17 @@
                             <th>Name</th>
                             <th>Due</th>
                             <th>Category</th>
-                            <th>Actions</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
+                    <!--
                     <nav>
                         <a href="#" id="btnAddTask">Add task</a>
                     </nav>
+                    -->
                 </section>
 
             </main>
@@ -161,15 +163,24 @@
 	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
 	<td>
-		<nav>
+		<Select name = "status">
+		    <option value="notStarted"></option>
+		    <option value="completed"></option>
+		    <option value="In Progress"></option>
+		</Select>
+	<!--
+	<nav>
 			{{if complete != true}}
 				<a href="#" class="editRow" data-task-id="${id}">Edit</a>
 				<a href="#" class="completeRow" data-task-id="${id}">Complete</a>
 			{{/if}}
 			<a href="#" class="deleteRow" data-task-id="${id}">Delete</a>
 		</nav>
+		-->
 	</td>
+
 </tr>
+
 </script>
 </html>
 
