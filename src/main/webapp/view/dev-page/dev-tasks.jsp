@@ -1,10 +1,16 @@
-<%--
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.wapgroup.model.User" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Fisseha
   Date: 4/20/2019
   Time: 9:58 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,10 +57,8 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
-
         <div class="col-sm-1 sidenav">
         </div>
-
         <div class="col-sm-10 text-left">
             <header>
                 <span>Task list</span>
@@ -63,7 +67,12 @@
             <main  id="taskPage">
 
                 <section>
-                    <table id="tblTasks">
+                    <form action = "DevPage" method = "GET" >
+                    <p>
+                        <button id = "viewBtn" type = "submit"> View Task</button>
+                    </p>
+
+                    <table id="userTasks">
                         <colgroup>
                             <col width="10%">
                             <col width="40%">
@@ -72,7 +81,7 @@
                             <col width="10%">
                             <col width="15%">
                         </colgroup>
-                        <thead>
+                        <tr>
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
@@ -81,85 +90,71 @@
                             <th>Priority</th>
                             <th>Status</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </section>
+                        <tr>
 
+                            <c:forEach items = "${users}" var = "user">
+                            <td> ${user.getfName()}</td> <td> ${user.getlName()}</td>
+                                <td> ${user.getEmpId()}</td> <td> ${user.getEmail()}</td>
+                                <td> ${user.getPhone()}</td>  <td> Edit Status</td>
+                                </c:forEach>
+
+                        </tr>
+                    </table>
+                    </form>
+                </section>
             </main>
 
             <section class = "foot">
                 <p>You have <span id="taskCount"></span> tasks</p>
             </section>
         </div>
-
         <div class="col-sm-1 sidenav">
-
         </div>
-
     </div>
 </div>
 
-
 </body>
+<!--
 <script>
-    function initScreen() {
-        $(document).ready(function() {
-            tasksController.init($('#taskPage'), function() {
-                tasksController.loadTasks();
+    $(document).ready(function () {
+        $("#viewBtn").click(function () {
+            console.log("connecting to servlet ...");
+            $.get("DevPage", {"tasks": "data"}).done(function (data) {
+                console.log(data);
+                $.each(data, function (index, value) {
+                    $("#userTable").append("<tr data-id="+value.id+">" +
+                        "<td>"+value.id+"</td>" +
+                        "<td>"+value.username+"</td>" +
+                        "<td>"+value.email+"</td>" +
+                        "</tr>");
+                });
+                $("#userTable").show();
+            }).fail(function (err) {
+                console.error(err);
             });
         });
-    }
-    if (window.indexedDB) {
-        $.getScript( "scripts/dev-tasks-indexeddb.js" )
-            .done(function( script, textStatus ) {
-                initScreen();
-            })
-            .fail(function( jqxhr, settings, exception ) {
-                console.log( 'Failed to load indexed db script' );
+
+        $("#userTable").on('click', 'tr', function(){
+            var self = $(this);
+            var userId=self.attr("data-id");
+            console.log(userId);
+            $.get("http://jsonplaceholder.typicode.com/posts?userId="+userId)
+                .done(function(data){
+
+                    var tableStr = '<tr><td colspan="3"><table><tr><th>ID</th><th>Title</th><th>Body</th></tr>';
+
+                    $.each(data, function (index, value) {
+                        tableStr += '<tr data-id="+value.id+"><td>"+value.id+"</td><td>"+value.title+"</td><td>"+value.body+"</td></tr>';
+                    });
+                    tableStr +='</table></td></tr>';
+                    self.append(tableStr);
+                }).fail(function () {
+
             });
-    } else if (window.localStorage) {
-        $.getScript( "scripts/dev-tasks-webstorage.js" )
-            .done(function( script, textStatus ) {
-                initScreen();
-            })
-            .fail(function( jqxhr, settings, exception ) {
-                console.log( 'Failed to load web storage script' );
-            });
-    }
-</script>
-
-<script id="taskRow" type="text/x-jQuery-tmpl">
-<tr>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${taskId}</td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${task}</td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${priority}</td>
+        });
 
 
-	<td>
-		<Select name = "status" id = "status" onchange = "changeStatus()">
-		    <option value="notStarted"> No Started </option>
-		    <option value="completed"> In Progress </option>
-		    <option value="In Progress"> Completed </option>
-		</Select>
-
-    <!--
-	<td>
-	<nav>
-			{{if complete != true}}
-				<a href="#" class="editRow" data-task-id="${id}">Edit</a>
-				<a href="#" class="completeRow" data-task-id="${id}">Complete</a>
-			{{/if}}
-			<a href="#" class="deleteRow" data-task-id="${id}">Delete</a>
-		</nav>
-	</td>
-	-->
-
-</tr>
-
-</script>
+    });
+</script> -->
 </html>
 
