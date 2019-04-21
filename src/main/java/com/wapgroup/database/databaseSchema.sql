@@ -1,3 +1,5 @@
+CREATE DATABASE taskmanagerdb;
+use taskmanagerdb;
 CREATE TABLE IF NOT exists users (
 	empId INT AUTO_INCREMENT,
     fName VARCHAR(25) NOT NULL,
