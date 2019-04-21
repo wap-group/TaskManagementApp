@@ -12,12 +12,13 @@ public class Task {
     private Catagory catagory;
     private String description;
     private Status status;
+    private Date taskAssigned;
 
     public Task(){}
 
     public Task(String taskId, String teamName, Date dueDate,
                 int priority, Catagory catagory, String description,
-                Status status)
+                Status status, Date taskAssigned)
     {
         this.taskId = taskId;
         this.teamName = teamName;
@@ -26,6 +27,7 @@ public class Task {
         this.catagory = catagory;
         this.description = description;
         this.status = status;
+        this.taskAssigned = taskAssigned;
     }
 
     public String getTaskId() {
@@ -82,5 +84,13 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Date getTaskAssigned() {
+        return taskAssigned;
+    }
+
+    public void setTaskAssigned(Date taskAssigned) {
+        this.taskAssigned = taskAssigned;
     }
 }
