@@ -1,7 +1,5 @@
 package com.wapgroup.servlets;
-import java.awt.print.Book;
 import java.sql.*;
-import java.util.LinkedHashMap;
 import  java.util.List;
 import java.util.ArrayList;
 import com.wapgroup.database.DatabaseConnection;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
 
 @WebServlet("/DevPage")
 public class DevTaskController extends HttpServlet {
