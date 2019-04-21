@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Developer Tasks </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -51,64 +51,40 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p><a href="#">Manage Teams</a></p>
-            <p><a href="#">Manage Tasks</a></p>
-            <p><a href="#">View Tasks</a></p>
+
+        <div class="col-sm-1 sidenav">
         </div>
-        <div class="col-sm-8 text-left">
+
+        <div class="col-sm-10 text-left">
             <header>
                 <span>Task list</span>
             </header>
             <hr>
             <main  id="taskPage">
-                <section id="taskCreation" class="not">
-                    <form id="taskForm">
-                        <input type="hidden" name="id"/>
-                        <div>
-                            <label>Task</label> <input type="text" required="required"
-                                                       name="task" class="large" placeholder="Breakfast at Tiffanys" maxlength="200"  />
-                        </div>
-                        <div>
-                            <label>Required by</label> <input type="date" required="required"
-                                                              name="requiredBy" />
-                        </div>
-                        <div>
-                            <label>Category</label> <select name="category">
-                            <option value="Personal">Personal</option>
-                            <option value="Work">Work</option>
-                        </select>
-                        </div>
-                        <nav>
-                            <a href="#" id="saveTask">Save task</a>
-                            <a href="#" id="clearTask">Clear task</a>
-                        </nav>
-                    </form>
-                </section>
+
                 <section>
                     <table id="tblTasks">
                         <colgroup>
+                            <col width="10%">
                             <col width="40%">
+                            <col width="10%">
                             <col width="15%">
+                            <col width="10%">
                             <col width="15%">
-                            <col width="30%">
                         </colgroup>
                         <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Name</th>
                             <th>Due</th>
                             <th>Category</th>
+                            <th>Priority</th>
                             <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
-                    <!--
-                    <nav>
-                        <a href="#" id="btnAddTask">Add task</a>
-                    </nav>
-                    -->
                 </section>
 
             </main>
@@ -117,14 +93,11 @@
                 <p>You have <span id="taskCount"></span> tasks</p>
             </section>
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+
+        <div class="col-sm-1 sidenav">
+
         </div>
+
     </div>
 </div>
 
@@ -159,16 +132,22 @@
 
 <script id="taskRow" type="text/x-jQuery-tmpl">
 <tr>
+	<td {{if complete == true}}class="taskCompleted"{{/if}}>${taskId}</td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${task}</td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
+	<td {{if complete == true}}class="taskCompleted"{{/if}}>${priority}</td>
+
+
 	<td>
-		<Select name = "status">
-		    <option value="notStarted"></option>
-		    <option value="completed"></option>
-		    <option value="In Progress"></option>
+		<Select name = "status" id = "status" onchange = "changeStatus()">
+		    <option value="notStarted"> No Started </option>
+		    <option value="completed"> In Progress </option>
+		    <option value="In Progress"> Completed </option>
 		</Select>
-	<!--
+
+    <!--
+	<td>
 	<nav>
 			{{if complete != true}}
 				<a href="#" class="editRow" data-task-id="${id}">Edit</a>
@@ -176,8 +155,8 @@
 			{{/if}}
 			<a href="#" class="deleteRow" data-task-id="${id}">Delete</a>
 		</nav>
-		-->
 	</td>
+	-->
 
 </tr>
 
