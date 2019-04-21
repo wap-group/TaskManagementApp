@@ -35,6 +35,10 @@ create table if not exists task(
     primary key(taskId)
     );
     
-INSERT INTO `taskmanagerdb`.`users` (`fName`, `lName`, `pass_word`, `email`, `phone`, `roles`) VALUES ('dawit', 'asefa', '123', 'dawit@gmail.com', '0912345678', 'admin');
+INSERT INTO `taskmanagerdb`.`users` (`fName`, `lName`, `pass_word`, `email`, `phone`, `roles`)
+VALUES ('dawit', 'asefa', '123', 'dawit@gmail.com', '0912345678', 'admin');
+
+INSERT INTO `taskmanagerdb`.`users` (`fName`, `lName`, `pass_word`, `email`, `phone`, `roles`)
+VALUES ('fessiha', 'atsbeha', '123', 'fesiha@gmail.com', '0932345673', 'project manager');
     
     
