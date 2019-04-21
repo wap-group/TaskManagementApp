@@ -29,7 +29,8 @@
             }
         }
 
-        return check;
+        //return check; /////////////////////////////////
+        if(check)sendToServlet();
     });
 
 
@@ -64,5 +65,24 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
+
+    function sendToServlet(value){
+
+        const email = $("input[name='username']").val();
+        const password = $("input[name='pass']").val();
+
+        $.ajax({
+            'url':"LoginServlet",
+            'type':'POST',
+            'data': {'email':email, 'passWord':password},
+            success: ajaxSucessful,
+        });
+
+    }
+
+    function ajaxSucessful(data){
+        data = JSON.parse(data);
+    }
+
 
 })(jQuery);

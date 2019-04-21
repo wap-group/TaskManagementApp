@@ -22,11 +22,12 @@ public class SampleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         DatabaseConnection dbCon = DatabaseConnection.getInstance();
+        Statement stm = null;
 
         if(dbCon != null){
             try{
 
-                Statement stm = dbCon.con.createStatement();
+                stm = dbCon.con.createStatement();
                 ResultSet rs = stm.executeQuery("SELECT * FROM users");
 
                 response.setContentType("text/html");
@@ -55,6 +56,12 @@ public class SampleServlet extends HttpServlet {
 
             }catch(SQLException se){
                 System.out.println("SQLException inside doGet: " + se);
+            }finally {
+                try {
+                    stm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

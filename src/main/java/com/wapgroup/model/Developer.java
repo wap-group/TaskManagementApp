@@ -7,6 +7,8 @@ public class Developer extends User {
     private List<Task> taskList;
     private Team team;
 
+    public Developer(){}
+
     public Developer(List<Task> taskList, Team team) {
         this.taskList = taskList;
         this.team = team;
