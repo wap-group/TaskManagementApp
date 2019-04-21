@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Task {
 
-    private String taskId;
+    private int taskId;
     private String taskName;
     private Date dueDate;
     private int priority;
@@ -16,7 +16,7 @@ public class Task {
 
     public Task(){}
 
-    public Task(String taskId, String taskName, Date dueDate,
+    public Task(int taskId, String taskName, Date dueDate,
                 int priority, Catagory catagory, String description,
                 Status status, Date taskAssigned)
     {
@@ -30,11 +30,11 @@ public class Task {
         this.taskAssigned = taskAssigned;
     }
 
-    public String getTaskId() {
+    public int getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
 
