@@ -44,8 +44,8 @@ public class LoginServlet extends HttpServlet {
                 json.put("login", "true");
                 json.put("url", "/view/admin/admin.jsp");
                 PrintWriter out = response.getWriter();
-                //out.print(json);
-                getServletContext().getRequestDispatcher("/view/admin/admin.jsp").forward(request, response);
+                out.print(json);
+                //getServletContext().getRequestDispatcher("/view/admin/admin.jsp").forward(request, response);
                 //response.sendRedirect("/index.jsp");
                 return;
             }
