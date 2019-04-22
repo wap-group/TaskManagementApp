@@ -12,9 +12,9 @@ body{
 .row.content {height: 450px}
 
 /* Set gray background color and 100% height */
-.sidenav {
+
+.sidenav .col-sm-2{
     padding-top: 20px;
-    width:15%;
     height: 100%;
     text-align: right;
 }

@@ -22,7 +22,7 @@ public class Authorization {
             try {
 
                 stm = connection.con.createStatement();
-                ResultSet rs = stm.executeQuery("SELECT * FROM users" +
+                ResultSet rs = stm.executeQuery("SELECT * FROM users " +
                                                     "WHERE email = '" + email + "' " +
                                                     "AND pass_word = '" + pw + "'");
                 if(rs.isBeforeFirst()){
