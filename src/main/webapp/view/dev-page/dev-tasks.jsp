@@ -1,15 +1,21 @@
-<%--
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.wapgroup.model.User" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Fisseha
   Date: 4/20/2019
   Time: 9:58 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Developer Tasks </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -51,125 +57,104 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p><a href="#">Manage Teams</a></p>
-            <p><a href="#">Manage Tasks</a></p>
-            <p><a href="#">View Tasks</a></p>
+        <div class="col-sm-1 sidenav">
         </div>
-        <div class="col-sm-8 text-left">
+        <div class="col-sm-10 text-left">
             <header>
                 <span>Task list</span>
             </header>
             <hr>
             <main  id="taskPage">
-                <section id="taskCreation" class="not">
-                    <form id="taskForm">
-                        <input type="hidden" name="id"/>
-                        <div>
-                            <label>Task</label> <input type="text" required="required"
-                                                       name="task" class="large" placeholder="Breakfast at Tiffanys" maxlength="200"  />
-                        </div>
-                        <div>
-                            <label>Required by</label> <input type="date" required="required"
-                                                              name="requiredBy" />
-                        </div>
-                        <div>
-                            <label>Category</label> <select name="category">
-                            <option value="Personal">Personal</option>
-                            <option value="Work">Work</option>
-                        </select>
-                        </div>
-                        <nav>
-                            <a href="#" id="saveTask">Save task</a>
-                            <a href="#" id="clearTask">Clear task</a>
-                        </nav>
-                    </form>
-                </section>
+
                 <section>
-                    <table id="tblTasks">
+                    <form action = "DevPage" method = "GET" >
+                    <p>
+                        <button id = "viewBtn" type = "submit"> View Task</button>
+                    </p>
+
+                    <table id="userTasks">
                         <colgroup>
+                            <col width="10%">
                             <col width="40%">
+                            <col width="10%">
                             <col width="15%">
+                            <col width="10%">
                             <col width="15%">
-                            <col width="30%">
                         </colgroup>
-                        <thead>
                         <tr>
+                        <tr>
+                            <th>Id</th>
                             <th>Name</th>
                             <th>Due</th>
                             <th>Category</th>
-                            <th>Actions</th>
+                            <th>Priority</th>
+                            <th>Status</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <nav>
-                        <a href="#" id="btnAddTask">Add task</a>
-                    </nav>
-                </section>
+                        <tr>
 
+                            <c:forEach items = "${users}" var = "user">
+                            <td> ${user.getfName()}</td> <td> ${user.getlName()}</td>
+                                <td> ${user.getEmpId()}</td> <td> ${user.getEmail()}</td>
+                                <td> ${user.getPhone()}</td>  <td> Edit Status</td>
+                                </c:forEach>
+
+                        </tr>
+                    </table>
+                    </form>
+                </section>
             </main>
 
             <section class = "foot">
                 <p>You have <span id="taskCount"></span> tasks</p>
             </section>
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+        <div class="col-sm-1 sidenav">
         </div>
     </div>
 </div>
 
-
 </body>
+<!--
 <script>
-    function initScreen() {
-        $(document).ready(function() {
-            tasksController.init($('#taskPage'), function() {
-                tasksController.loadTasks();
+    $(document).ready(function () {
+        $("#viewBtn").click(function () {
+            console.log("connecting to servlet ...");
+            $.get("DevPage", {"tasks": "data"}).done(function (data) {
+                console.log(data);
+                $.each(data, function (index, value) {
+                    $("#userTable").append("<tr data-id="+value.id+">" +
+                        "<td>"+value.id+"</td>" +
+                        "<td>"+value.username+"</td>" +
+                        "<td>"+value.email+"</td>" +
+                        "</tr>");
+                });
+                $("#userTable").show();
+            }).fail(function (err) {
+                console.error(err);
             });
         });
-    }
-    if (window.indexedDB) {
-        $.getScript( "scripts/dev-tasks-indexeddb.js" )
-            .done(function( script, textStatus ) {
-                initScreen();
-            })
-            .fail(function( jqxhr, settings, exception ) {
-                console.log( 'Failed to load indexed db script' );
-            });
-    } else if (window.localStorage) {
-        $.getScript( "scripts/dev-tasks-webstorage.js" )
-            .done(function( script, textStatus ) {
-                initScreen();
-            })
-            .fail(function( jqxhr, settings, exception ) {
-                console.log( 'Failed to load web storage script' );
-            });
-    }
-</script>
 
-<script id="taskRow" type="text/x-jQuery-tmpl">
-<tr>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${task}</td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
-	<td>
-		<nav>
-			{{if complete != true}}
-				<a href="#" class="editRow" data-task-id="${id}">Edit</a>
-				<a href="#" class="completeRow" data-task-id="${id}">Complete</a>
-			{{/if}}
-			<a href="#" class="deleteRow" data-task-id="${id}">Delete</a>
-		</nav>
-	</td>
-</tr>
-</script>
+        $("#userTable").on('click', 'tr', function(){
+            var self = $(this);
+            var userId=self.attr("data-id");
+            console.log(userId);
+            $.get("http://jsonplaceholder.typicode.com/posts?userId="+userId)
+                .done(function(data){
+
+                    var tableStr = '<tr><td colspan="3"><table><tr><th>ID</th><th>Title</th><th>Body</th></tr>';
+
+                    $.each(data, function (index, value) {
+                        tableStr += '<tr data-id="+value.id+"><td>"+value.id+"</td><td>"+value.title+"</td><td>"+value.body+"</td></tr>';
+                    });
+                    tableStr +='</table></td></tr>';
+                    self.append(tableStr);
+                }).fail(function () {
+
+            });
+        });
+
+
+    });
+</script> -->
 </html>
 
