@@ -1,0 +1,36 @@
+
+table, th, td
+{
+    border: 1px solid #888;
+}
+
+section {
+    margin:20px 0 0 0;
+}
+
+table {
+    width: calc(100% - 250px);
+    border-collapse:collapse;
+}
+
+thead {
+    width: 5%;
+    line-height: 30px;
+}
+
+thead th {
+    background: #53777a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align:center;
+}
+
+tbody{
+    background: grey;
+}
+td {
+    font-size: 11px;
+    line-height: 25px;
+    padding-left: 10px;
+}

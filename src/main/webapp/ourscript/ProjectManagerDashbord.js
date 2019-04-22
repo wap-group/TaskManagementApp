@@ -22,6 +22,10 @@ $(function() {
 
     $("#manageTeam").on('click', function () {
         $("#task").hide();
+        $("#teamCreateDiv").hide();
+        $("#teamAssignDiv").hide();
+        $("#teamListDeveloperDiv").hide();
+        $("#teamListTeamDiv").show();
         $("#team").show();
     });
 
@@ -55,8 +59,12 @@ $(function() {
     });
 
     $("#manageTask").on('click', function () {
-        $("#task").show();
         $("#team").hide();
+        $("#taskCreateDiv").hide();
+        $("#taskAssignDiv").hide();
+        $("#taskListDiv").show();
+        $("#task").show();
+
     });
 });
 

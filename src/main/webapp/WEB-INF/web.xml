@@ -7,6 +7,69 @@
     <welcome-file>/view/projectmanager/ProjectManagerDashbord.jsp</welcome-file>
   </welcome-file-list>
   <display-name>Archetype Created Web Application</display-name>
+  
+  <servlet>
+    <servlet-name>PMDeveloperList</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerDeveloperListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMDeveloperList</servlet-name>
+    <url-pattern>/pm-developer-list</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PMTaskAssign</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerTaskAssignServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMTaskAssign</servlet-name>
+    <url-pattern>/pm-task-assign</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PMTaskCreate</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerTaskCreateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMTaskCreate</servlet-name>
+    <url-pattern>/pm-task-create</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PMTaskList</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerTaskListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMTaskList</servlet-name>
+    <url-pattern>/pm-task-list</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PMTeamAssign</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerTeamAssignServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMTeamAssign</servlet-name>
+    <url-pattern>/pm-team-assign</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PMTeamCreate</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerTeamCreateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMTeamCreate</servlet-name>
+    <url-pattern>/pm-team-create</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PMTeamList</servlet-name>
+    <servlet-class>com.wapgroup.servlets.ProjectManagerTeamListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PMTeamList</servlet-name>
+    <url-pattern>/pm-team-list</url-pattern>
+  </servlet-mapping>
 </web-app>
 
 

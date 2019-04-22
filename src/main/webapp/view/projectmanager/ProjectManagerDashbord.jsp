@@ -9,14 +9,23 @@
 <html>
 <head>
     <title>Manage Team And Task</title>
-    <script type="text/javascript" src="../../scripts/jquery-3.3.1.min.js"></script>
-    <script src="../../ourscript/ProjectManagerDashbord.js"></script>
+    <script src="../../scripts/jquery-3.2.1.min.js"></script>
+    <link href="../../styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css">
     <link href="../../styles/Display.css" rel="stylesheet" type="text/css">
+    <link href="../../styles/table.css" rel="stylesheet" type="text/css">
+    <script src="../../ourscript/ProjectManagerDashbord.js"></script>
+
 </head>
 <body>
 <div>
-    <jsp:include page="Task.jsp" />
-    <jsp:include page="Team.jsp" />
+    <!-- <link href="../../styles/style2.css" rel="stylesheet" type="text/css">
+    <link href="../../styles/style3.css" rel="stylesheet" type="text/css">
+    <link href="../../styles/style4.css" rel="stylesheet" type="text/css">
+    <link href="../../styles/style5.css" rel="stylesheet" type="text/css">-->
+    <!-- <i class="fa fa-sign-out fa_custom fa-2x"></i>-->
+    <div class="top15"><jsp:include page="Task.jsp" /></div>
+    <div class="top15"><jsp:include page="Team.jsp" /></div>
 </div>
 </body>
 </html>

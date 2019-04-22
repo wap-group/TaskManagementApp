@@ -4,7 +4,19 @@
   Date: 4/20/2019
   Time: 3:08 PM
   To change this template use File | Settings | File Templates.
---%>
-<div class="hide" id="teamListTeamDiv">
-    <h1>Team List Team</h1>
+class="hide"--%>
+<div id="teamListTeamDiv">
+    <table id="teamListTeamId">
+        <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Team Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data From DB</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

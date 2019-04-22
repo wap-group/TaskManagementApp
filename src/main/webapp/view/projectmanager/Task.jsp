@@ -5,26 +5,55 @@
   Time: 5:38 PM
   To change this template use File | Settings | File Templates.
 --%>
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>-->
-<div id="task">
-    <div id="taskButtons">
-        <button id="createTask">Create Task</button>
-        <button id="assignTask">Assign Task</button>
-        <button id="listTask">List Task</button>
-        <button id="manageTeam">Manage Team</button>
+<div id="task" class="top15">
+    <div id="taskButtons" class="container">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Manage Task</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="top5" id="createTask">
+                    Create Task
+                </li>
+                <li class="top5" id="assignTask">
+                    Assign Task
+                </li>
+                <li class="top5" id="listTask">
+                    List Task
+                </li>
+                <li class="top5" id="manageTeam">
+                    Manage Team
+                </li>
+            </ul>
+        </nav>
     </div>
-    <div>
-        <jsp:include page="TaskCreate.jsp" />
-        <jsp:include page="TaskAssign.jsp" />
-        <jsp:include page="TaskList.jsp" />
+    <!--<div id="taskButtons" class="container">
+        <div class="row">
+            <div class="col-lg-2 col-sm-2 col-md-2">
+                <button id="createTask">Create Task</button>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-2">
+                <button id="assignTask">Assign Task</button>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-2">
+                <button id="listTask">List Task</button>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-2">
+                <button id="manageTeam">Manage Team</button>
+            </div>
+        </div>-->
+    <div class="wrapper top5" id="contentTask">
+        <div>
+            <jsp:include page="TaskCreate.jsp" />
+        </div>
+        <div>
+            <jsp:include page="TaskAssign.jsp" />
+        </div>
+        <div>
+            <jsp:include page="TaskList.jsp" />
+        </div>
     </div>
 </div>
 

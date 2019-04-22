@@ -5,3 +5,35 @@
 .show {
     display: block;
 }
+
+.top2 { margin-top:2%; }
+.top5 { margin-top:5%; }
+.top7 { margin-top:7%; }
+.top10 { margin-top:10%; }
+.top15 { margin-top:15%; }
+.top17 { margin-top:17%; }
+.top30 { margin-top:30%; }
+
+.bottom2 {margin-bottom: 2%; }
+.bottom5 {margin-bottom: 5%; }
+.bottom7 { margin-bottom:7%; }
+.bottom10 {margin-bottom: 10%; }
+.bottom15 { margin-bottom: 15%; }
+.bottom17 { margin-bottom: 17%; }
+.bottom30 { margin-bottom: 30%; }
+
+.left2 { margin-left: 2%; }
+.left5 { margin-left: 5%; }
+.left7 { margin-left: 7%; }
+.left10 { margin-left: 10%; }
+.left15 { margin-left: 15%; }
+.left17 { margin-left: 17%; }
+.left30 { margin-left: 30%; }
+
+.right2 { margin-right: 2%; }
+.right5 { margin-right: 5%; }
+.right7 { margin-right: 7%; }
+.right10 { margin-right: 10%; }
+.right15 { margin-right: 15%; }
+.right17 { margin-right: 17%; }
+.right30 { margin-right: 30%; }

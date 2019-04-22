@@ -7,14 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ProjectManagerTeamCreateServlet", urlPatterns = {"/pm-team-create"})
+public class ProjectManagerTeamCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String email = request.getParameter("email");
-        String password = request.getParameter("passWord");
-        //getServletContext().getRequestDispatcher("index.jsp").forward(request, response);
-        System.out.println("Credentials are :" + email + " : " + password);
 
     }
 
