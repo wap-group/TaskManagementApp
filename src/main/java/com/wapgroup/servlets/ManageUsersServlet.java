@@ -57,4 +57,11 @@ public class ManageUsersServlet extends HttpServlet {
         response.getWriter().write(ar.toString());
 
     }
+
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+    }
 }

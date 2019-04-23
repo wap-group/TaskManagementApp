@@ -98,4 +98,9 @@ public class UserServices {
         }
 
     }
+
+
+    public static void deleteUser(){
+
+    }
 }
