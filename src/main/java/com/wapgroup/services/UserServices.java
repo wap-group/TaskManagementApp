@@ -89,6 +89,12 @@ public class UserServices {
 
         }catch(SQLException se){
             System.out.println(se);
+        }finally {
+            try{
+                pst.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
         }
 
     }

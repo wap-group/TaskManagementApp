@@ -28,6 +28,15 @@
 </head>
 <body>
 
+<%
+    HttpSession s = request.getSession(false);
+    if(s == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }else{
+        s = null;
+        //out.println("<h2>session not null</h2>");
+    }
+%>
 
 <div class="limiter">
     <div class="container-login100">
@@ -73,7 +82,7 @@
                 </div>
             </form>
 
-
+            <div id="errorMessage"></div>
         </div>
     </div>
 </div>
@@ -84,6 +93,29 @@
 <!--script src="view/Login/loginjs/js/main.js"></script-->
 
 
+<script type="text/javascript">
 
+    $(document).ready(function(){
+
+        console.log(window.location.toString());
+        $('#errorMessage').empty().append($('<p/>').text(getQueryVariable('msg'))
+            .css({"color":"red"}));
+
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+
+            for(var i=0; i < vars.length; i++){
+                var pair = vars[i].split('=');
+                if(decodeURIComponent(pair[0]) == variable){
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            return "";
+        }
+
+    });
+
+</script>
 </body>
 </html>

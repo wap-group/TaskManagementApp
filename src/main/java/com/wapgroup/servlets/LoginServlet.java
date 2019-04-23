@@ -51,9 +51,11 @@ public class LoginServlet extends HttpServlet {
 //                return;
 
                   response.setContentType("text/html");
-                  PrintWriter out = response.getWriter();
-
+                  //getServletContext().getRequestDispatcher("/view/admin/admin.jsp").forward(request, response);
+                  response.sendRedirect("/TaskManagementApp_war_exploded/view/admin/admin.jsp");
             }
+        }else{
+            response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp?msg=Incorrect+Credential+Inserted.");
         }
         //
 
