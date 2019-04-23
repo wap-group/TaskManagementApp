@@ -3,6 +3,7 @@ package com.wapgroup.servlets;
 import com.wapgroup.Authorization.Authorization;
 import com.wapgroup.model.Role;
 import com.wapgroup.model.User;
+
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;

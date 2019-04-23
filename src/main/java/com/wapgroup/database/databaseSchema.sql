@@ -28,7 +28,7 @@ create table if not exists task(
     taskName varchar(25) not null,
     dueDate date not null,
     priority tinyint not null,
-    catagory varchar(15) not null,
+    category varchar(15) not null,
     taskDescription text,
     taskStatus varchar(30) not null,
     taskAssigned date,

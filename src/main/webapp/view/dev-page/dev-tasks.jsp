@@ -1,27 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Fisseha
-  Date: 4/20/2019
-  Time: 9:58 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.wapgroup.model.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.wapgroup.model.Task" %>
+<%@ page import="com.wapgroup.model.Catagory" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="com.wapgroup.model.Status" %>
+<%@ page import="org.json.JSONObject" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Developer Tasks </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/dev-tasks.css" media="screen" />
-    <script src="scripts/jquery-2.0.3.js"></script>
-    <script src="scripts/jquery-tmpl.js"></script>
     <script src="scripts/jquery.validate.js"></script>
-    <script src="scripts/jquery-serialization.js"></script>
-    <script src="scripts/dev-tasks-controller.js"></script>
-    <script src="scripts/date.js"></script>
+    <script src="scripts/dev-tasks.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/dev-tasks.css" media="screen" />
+    <script src="scripts/jquery-3.3.1.js"></script>
+    <script src="scripts//jquery.dataTables.min.js"></script>
+    <script src = "scripts/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
 
@@ -51,125 +54,134 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p><a href="#">Manage Teams</a></p>
-            <p><a href="#">Manage Tasks</a></p>
-            <p><a href="#">View Tasks</a></p>
+        <div class="col-sm-1 sidenav">
         </div>
-        <div class="col-sm-8 text-left">
+        <div class="col-sm-10 text-left">
             <header>
                 <span>Task list</span>
             </header>
             <hr>
-            <main  id="taskPage">
-                <section id="taskCreation" class="not">
-                    <form id="taskForm">
-                        <input type="hidden" name="id"/>
-                        <div>
-                            <label>Task</label> <input type="text" required="required"
-                                                       name="task" class="large" placeholder="Breakfast at Tiffanys" maxlength="200"  />
-                        </div>
-                        <div>
-                            <label>Required by</label> <input type="date" required="required"
-                                                              name="requiredBy" />
-                        </div>
-                        <div>
-                            <label>Category</label> <select name="category">
-                            <option value="Personal">Personal</option>
-                            <option value="Work">Work</option>
-                        </select>
-                        </div>
-                        <nav>
-                            <a href="#" id="saveTask">Save task</a>
-                            <a href="#" id="clearTask">Clear task</a>
-                        </nav>
+            <main  id="taskPage ">
+                <div id = "selectStatus" style="display: none;">
+                    <form id = "statusForm">
+                        <label> Select Status <select id = "selector">
+                            <option selected value = "None" va> None </option>
+                            <option value = "Not started"> Not started </option>
+                            <option value = "In progress">In progress </option>
+                            <option value = "Completed"> Completed </option>
+                        </select> </label>
                     </form>
-                </section>
+                    <p>
+                        <button id = "saveStatus" type = "buttom"> Save Status</button>
+                    </p>
+                </div>
                 <section>
-                    <table id="tblTasks">
+                    <div style = "display: inline;">
+                        <button id = "sortTable" type = "buttom"> SortBy Priority</button>
+                        <button id = "filterTable" type = "buttom"> Filter </button>
+                    </div>
+                    <table class = "sortable" id="userTasks">
                         <colgroup>
-                            <col width="40%">
+                            <col width="10%">
+                            <col width="25%">
                             <col width="15%">
-                            <col width="15%">
-                            <col width="30%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+
                         </colgroup>
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Due</th>
-                            <th>Category</th>
-                            <th>Actions</th>
+                            <th style="text-align: center;">Task Id</th>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Category</th>
+                            <th style="text-align: center;">Due Date</th>
+                            <th style="text-align: center;"> Date Assigned</th>
+                            <th style="text-align: center;">Priority</th>
+                            <th style="text-align: center;">Status</th>
+                            <th style="text-align: center;">Edit Status</th>
+
                         </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <nav>
-                        <a href="#" id="btnAddTask">Add task</a>
-                    </nav>
-                </section>
 
+                        <tbody>
+
+                            <c:forEach var = "task" items = "${tasks}">
+                            <tr >
+                                <td> ${task.getTaskId()} </td>
+                                <td> ${task.gettaskName()} </td>
+                                <td> ${task.getCatagory().toString()} </td>
+                                <td> ${task.getDueDate()} </td>
+                                <td> ${task.getTaskAssigned()} </td>
+                                <td> ${task.getPriority()} </td>
+                                <td class = "status" > ${task.getStatus().toString()} </td>
+                                <td>
+                                    <input type = "button" class = "editStatus" style = "width: 100%" value = "Edit"></td>
+                            </tr>
+                            </c:forEach>
+
+                        </tbody>
+
+                    <%--
+                      <%List<Task> tasks = (List)session.getAttribute("tasks");
+                        Iterator it = tasks.iterator();
+                          while(it.hasNext()) {
+                              Task task = (Task) it.next();
+                              int taskId = task.getTaskId();
+                              String name = task.gettaskName();
+                              String category = task.getCatagory().toString();
+                              Date dueDate = task.getDueDate();
+                              Date dateAssigned = task.getTaskAssigned();
+                              int priority  = task.getPriority();
+                              String status = task.getStatus().toString();
+
+                              JSONObject json = new JSONObject();
+                              json.put("id", taskId);
+                              json.put("name", name);
+                              json.put("category", category);
+                              json.put("dueDate", dueDate);
+                              json.put("dateAssigned", dateAssigned);
+                              json.put("priority", priority);
+                              json.put("status", status);
+
+
+                              //response.getWriter().print(json);
+                              //response.getWriter().flush();
+                              //response.getWriter().close();
+                              %>
+
+                        <tbody>
+                           <tr >
+                               <td> <%= taskId %> </td>
+                               <td> <%= name %> </td>
+                               <td> <%= category %> </td>
+                               <td> <%= dueDate %> </td>
+                               <td> <%= dateAssigned %> </td>
+                               <td> <%= priority%> </td>
+                               <td class = "status" > <%= status %> </td>
+                               <td>
+                                   <input type = "button" class = "editStatus" style = "width: 100%" value = "Edit"></td>
+                            </tr>
+                        </tbody>
+                          <%} %>
+                          --%>
+                    </table>
+
+                </section>
             </main>
 
             <section class = "foot">
                 <p>You have <span id="taskCount"></span> tasks</p>
             </section>
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+        <div class="col-sm-1 sidenav">
         </div>
     </div>
 </div>
 
-
 </body>
-<script>
-    function initScreen() {
-        $(document).ready(function() {
-            tasksController.init($('#taskPage'), function() {
-                tasksController.loadTasks();
-            });
-        });
-    }
-    if (window.indexedDB) {
-        $.getScript( "scripts/dev-tasks-indexeddb.js" )
-            .done(function( script, textStatus ) {
-                initScreen();
-            })
-            .fail(function( jqxhr, settings, exception ) {
-                console.log( 'Failed to load indexed db script' );
-            });
-    } else if (window.localStorage) {
-        $.getScript( "scripts/dev-tasks-webstorage.js" )
-            .done(function( script, textStatus ) {
-                initScreen();
-            })
-            .fail(function( jqxhr, settings, exception ) {
-                console.log( 'Failed to load web storage script' );
-            });
-    }
-</script>
 
-<script id="taskRow" type="text/x-jQuery-tmpl">
-<tr>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${task}</td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
-	<td>
-		<nav>
-			{{if complete != true}}
-				<a href="#" class="editRow" data-task-id="${id}">Edit</a>
-				<a href="#" class="completeRow" data-task-id="${id}">Complete</a>
-			{{/if}}
-			<a href="#" class="deleteRow" data-task-id="${id}">Delete</a>
-		</nav>
-	</td>
-</tr>
-</script>
 </html>
 

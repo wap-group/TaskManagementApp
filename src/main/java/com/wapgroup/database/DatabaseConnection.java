@@ -24,7 +24,7 @@ public class DatabaseConnection {
 
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/taskmanagerdb","root","root"
+                    "jdbc:mysql://localhost:3306/taskmanagerdb","root","fwa2332"
             );
 
         }catch(ClassNotFoundException cnf){
