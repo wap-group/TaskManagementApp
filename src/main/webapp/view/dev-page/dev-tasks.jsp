@@ -119,52 +119,8 @@
                                     <input type = "button" class = "editStatus" style = "width: 100%; margin: 0;"
                                            value = "Edit"></td>
                             </tr>
-                            <script>
-                                function updateTable(){
-                                $("#userTasks").append("<tr data-id="+value.id+">" +
-                                    "<td>"+"${task.getTaskId()}"+"</td>" +
-                                    "<td>"+"${task.gettaskName()}"+"</td>" +
-                                    "<td>"+"${task.getCatagory().toString()}"+"</td></tr>" +
-                                    "<td>"+"${task.getDueDate()}"+"</td></tr>" +
-                                    "<td>"+"${task.getPriority()}"+"</td></tr>" +
-                                    "<td class = status" +" >"+ ${task.getStatus().toString()}+"</td>" +
-                                    " <input type = \"button\" class = \"editStatus\" style = \"width: 100%; margin: 0;\"\n" +
-                                     value = \"Edit\"></td>" +
-                                    "</tr>");
-                                };
-                                updateTable();
-                            </script>
-
-                           <%-- <script type="text/javascript">
-
-                                function foo() {
-                                    console.log($(#userTasks));
-                                    $(#userTasks).append('<tr> <td> + "${task.getTaskId()}" + "</td> <td>" '+
-                                        '"${task.gettaskName()}" + </td> <td> + "${task.getCatagory()}" + </td> <td> '+
-                                        '"${task.getDueDate()}"+ </td> <td> + "${task.getTaskAssigned()}" + </td> </tr>');
-                                };
-                                foo();
-                            </script> --%>
                         </c:forEach>
-
                         </tbody>
-
-                    <%--
-                       <tbody>
-                           <tr >
-                               <td> <%= taskId %> </td>
-                               <td> <%= name %> </td>
-                               <td> <%= category %> </td>
-                               <td> <%= dueDate %> </td>
-                               <td> <%= dateAssigned %> </td>
-                               <td> <%= priority%> </td>
-                               <td class = "status" > <%= status %> </td>
-                               <td>
-                                   <input type = "button" class = "editStatus" style = "width: 100%" value = "Edit"></td>
-                            </tr>
-                        </tbody>
-                          <%} %>
-                          --%>
                     </table>
 
                 </section>

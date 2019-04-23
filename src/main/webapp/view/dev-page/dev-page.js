@@ -11,29 +11,29 @@ $(document).ready(function(){
 
     MyDateField.prototype = new jsGrid.Field({
 
-       css: "date-field",
-       align: "center",
+        css: "date-field",
+        align: "center",
 
-       myCustomProperty: "foo",
+        myCustomProperty: "foo",
 
-       itemTemplate: function(value){
-           return new Date(value).toDateString();
-       } ,
+        itemTemplate: function(value){
+            return new Date(value).toDateString();
+        } ,
 
         insertTemplate: function(value){
-           return this._insertPicker = $("<input>").datepicker({default: new Date()});
+            return this._insertPicker = $("<input>").datepicker({default: new Date()});
         },
 
         editTemplate: function(value){
-           return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+            return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
         },
 
         insertValue: function(){
-           return this._insertPicker.datepicker("getDate").toISOString();
+            return this._insertPicker.datepicker("getDate").toISOString();
         },
 
         editValue: function(){
-           return this._editPicker.datepicker("getDate").toISOString();
+            return this._editPicker.datepicker("getDate").toISOString();
         }
 
     });
@@ -57,7 +57,7 @@ $(document).ready(function(){
                 let data = $.Deferred();
                 $.ajax({
                     type: "GET",
-                    url: "../../../ManageTaskServlet",
+                    url: "../../DeveloperServlet",
                     datatype: "json"
                 }).done(function(response){
                     data.resolve(response);
@@ -68,7 +68,7 @@ $(document).ready(function(){
                 let data = $.Deferred();
                 $.ajax({
                     type: "POST",
-                    url: "../../../ManageTaskServlet",
+                    url: "../../DeveloperServlet",
                     data: item,
                     datatype: "json"
                 }).done(function(response){

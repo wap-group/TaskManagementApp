@@ -14,25 +14,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../scripts/jsgrid/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../scripts/jsgrid/jsgrid-theme.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../styles/admin.css">
+    <link type="text/css" rel="stylesheet" href="scripts/jquery-ui-1.12.1/jquery-ui.min.css">
 
-    <link type="text/css" rel="stylesheet" href="../../../scripts/jsgrid/jsgrid.min.css" />
-    <link type="text/css" rel="stylesheet" href="../../../scripts/jsgrid/jsgrid-theme.min.css" />
-    <link type="text/css" rel="stylesheet" href="../../../styles/admin.css">
-    <link type="text/css" rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
-
-    <script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../../../scripts/jsgrid/jsgrid.min.js"></script>
-    <script type="text/javascript" src="pm.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../scripts/jsgrid/jsgrid.min.js"></script>
+    <script type="text/javascript" src="dev-page.js"></script>
 </head>
 <body>
-
-<!--%
-
-    out.println("empId: " + request.getParameter("empid"));
-    out.println("email: " + request.getParameter("email"));
-    out.println("fname: " + request.getParameter("fname"));
-    out.println("lname: " + request.getParameter("lname"));
-%-->
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -60,8 +51,8 @@
 </nav>
 <div class="content-area">
     <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Developer Tasks</a></li>
-        <li><a href="#">Manage Teams </a></li>
+        <li class="active"><a href="#">Manage Tasks</a></li>
+        <li><a href="#">View Teams </a></li>
         <li><a href="#">TBA</a></li>
     </ul>
 </div>
