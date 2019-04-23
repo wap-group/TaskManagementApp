@@ -1,6 +1,7 @@
 package com.wapgroup.servlets;
 
 import com.wapgroup.model.*;
+import com.wapgroup.services.ManagerServices;
 import com.wapgroup.services.UserServices;
 import org.json.JSONArray;
 
@@ -27,7 +28,7 @@ public class ManageTaskServlet extends HttpServlet {
         String date1 = request.getParameter("dueDate");
         Date dueDate = null;
         try{
-            dueDate = new SimpleDateFormat("YYYY-MM-DD").parse(date1);
+            dueDate = new SimpleDateFormat("MM-DD-YYYY").parse(date1);
         }catch(ParseException e){
             e.printStackTrace();
         }
@@ -41,8 +42,8 @@ public class ManageTaskServlet extends HttpServlet {
         String taskAssigned = request.getParameter("taskAssigned");
         Date dateAssigned = null;
         try{
-            dateAssigned = new SimpleDateFormat("YYYY-MM-DD").parse(taskAssigned);
-        }catch(ParseException e){
+            dateAssigned = new SimpleDateFormat("MM-DD-YYYY").parse(taskAssigned);
+        } catch(ParseException e){
             e.printStackTrace();
         }
 
@@ -51,14 +52,14 @@ public class ManageTaskServlet extends HttpServlet {
                 taskDescription, Status.stringToStatus(taskStatus), devEmail, dateAssigned);
 
 
-        System.out.println("------ " + taskId"" + "  " + taskName +
+        System.out.println("------ " + taskId + "  " + taskName +
                 "  " + dueDate + "  " + priority + "  " +
                 category + "  " + taskDescription + "  " + devEmail + " " + dateAssigned);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        UserServices.insertUser(task);
-        JSONArray ar = UserServices.getUsersJSON();
+        ManagerServices.insertTask(task);
+        JSONArray ar = ManagerServices.getTaskJSON();
         response.getWriter().write(ar.toString());
 
     }
@@ -67,7 +68,7 @@ public class ManageTaskServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        JSONArray ar = UserServices.getUsersJSON();
+        JSONArray ar = ManagerServices.getTaskJSON();
         System.out.println("*** " + ar.toString());
         response.getWriter().write(ar.toString());
 

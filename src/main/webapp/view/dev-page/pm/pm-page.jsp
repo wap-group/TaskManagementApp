@@ -15,16 +15,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-    <script src="../../dev-page/scripts/jquery-2.0.3.js"></script>
+    <!--script src="../../dev-page/scripts/jquery-2.0.3.js"></script>
     <script src="../../dev-page/scripts/jquery-tmpl.js"></script>
     <script src="../../dev-page/scripts/jquery.validate.js"></script>
     <script src="../../dev-page/scripts/jquery-serialization.js"></script>
     <script src="../../dev-page/scripts/dev-tasks-controller.js"></script>
-    <script src="../../dev-page/scripts/date.js"></script>
+    <script src="../../dev-page/scripts/date.js"></script-->
     <link type="text/css" rel="stylesheet" href="../../../scripts/jsgrid/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="../../../scripts/jsgrid/jsgrid-theme.min.css" />
     <link type="text/css" rel="stylesheet" href="../../../styles/admin.css">
+    <link type="text/css" rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
 
+    <script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../../../scripts/jsgrid/jsgrid.min.js"></script>
     <script type="text/javascript" src="pm.js"></script>
 </head>
