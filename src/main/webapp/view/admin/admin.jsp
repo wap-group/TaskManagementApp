@@ -19,6 +19,5 @@
     out.println("fname: " + request.getParameter("fname"));
     out.println("lname: " + request.getParameter("lname"));
 %>
-
 </body>
 </html>
