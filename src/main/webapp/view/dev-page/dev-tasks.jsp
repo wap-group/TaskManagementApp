@@ -102,11 +102,26 @@
                             <th style="text-align: center;">Priority</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Edit Status</th>
-
                         </tr>
                         </thead>
 
                         <tbody>
+                        <%
+                            List<Task> tasks = (List)session.getAttribute("tasks");
+                            Iterator it = tasks.iterator();
+                            while(it.hasNext()) {
+                                Task task = (Task) it.next();
+
+                                JSONObject json = new JSONObject();
+                                json.put("id", task.getTaskId());
+                                json.put("name", task.gettaskName());
+                                json.put("category", task.getCatagory().toString());
+                                json.put("dueDate", task.getDueDate());
+                                json.put("dateAssigned", task.getTaskAssigned());
+                                json.put("priority", task.getPriority());
+                                json.put("status", task.getStatus().toString());
+                            }
+                        %>
 
                             <c:forEach var = "task" items = "${tasks}">
                             <tr >
@@ -120,32 +135,20 @@
                                 <td>
                                     <input type = "button" class = "editStatus" style = "width: 100%" value = "Edit"></td>
                             </tr>
+                                <c:set var ="myVar" value="Wel done!" />
+                                <script type="text/javascript">
+                                    foo();
+                                    function foo() {
+                                        let value = "${myVar}";
+                                        alert(value);
+                                    }
+                                </script>
                             </c:forEach>
 
                         </tbody>
 
                     <%--
-                      <%List<Task> tasks = (List)session.getAttribute("tasks");
-                        Iterator it = tasks.iterator();
-                          while(it.hasNext()) {
-                              Task task = (Task) it.next();
-                              int taskId = task.getTaskId();
-                              String name = task.gettaskName();
-                              String category = task.getCatagory().toString();
-                              Date dueDate = task.getDueDate();
-                              Date dateAssigned = task.getTaskAssigned();
-                              int priority  = task.getPriority();
-                              String status = task.getStatus().toString();
-
-                              JSONObject json = new JSONObject();
-                              json.put("id", taskId);
-                              json.put("name", name);
-                              json.put("category", category);
-                              json.put("dueDate", dueDate);
-                              json.put("dateAssigned", dateAssigned);
-                              json.put("priority", priority);
-                              json.put("status", status);
-
+                      <%
 
                               //response.getWriter().print(json);
                               //response.getWriter().flush();
