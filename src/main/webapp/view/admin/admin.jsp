@@ -5,7 +5,12 @@
   Time: 1:54 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@page isELIgnored="false" %>
+
 <html>
 <head>
     <title>Admin-Page</title>
@@ -29,14 +34,13 @@
     <script type="text/javascript" src="../../scripts/admin.js"></script>
 </head>
 <body>
+<%
+    HttpSession s = request.getSession(false);
+    if(s.getAttribute("phone") == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }
+%>
 
-<!--%
-
-    out.println("empId: " + request.getParameter("empid"));
-    out.println("email: " + request.getParameter("email"));
-    out.println("fname: " + request.getParameter("fname"));
-    out.println("lname: " + request.getParameter("lname"));
-%-->
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">

@@ -19,8 +19,8 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("passWord");
+        String email = request.getParameter("username");
+        String password = request.getParameter("pass");
 
         System.out.println("Credentials are :" + email + " : " + password);
 
@@ -39,19 +39,17 @@ public class LoginServlet extends HttpServlet {
             System.out.println("User role: " + user.getRole());
             if(user.getRole().toString().equals("admin")) {
 
-                response.setContentType("application/json");
-                System.out.println("equals with admin");
-                JSONObject json = new JSONObject();
-                json.put("login", "true");
-                json.put("url", "/view/admin/admin.jsp");
-                PrintWriter out = response.getWriter();
-                out.print(json);
-                //getServletContext().getRequestDispatcher("/view/admin/admin.jsp").forward(request, response);
-                //response.sendRedirect("/index.jsp");
-                //return;
+                  response.setContentType("text/html");
+                  response.sendRedirect("/TaskManagementApp_war_exploded/view/admin/admin.jsp");
+
+            }else if(user.getRole().toString().equals("developer")){
+
+                response.setContentType("text/html");
+                response.sendRedirect("/TaskManagementApp_war_exploded/view/dev-tasks/dev-tasks.jsp");
             }
+        }else{
+            response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp?msg1=Incorrect&msg2=Credential&msg3=Inserted.");
         }
-        //
 
     }
 

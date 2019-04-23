@@ -28,6 +28,15 @@
 </head>
 <body>
 
+<%
+    HttpSession s = request.getSession(false);
+    if(s == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }else{
+        s = null;
+        //out.println("<h2>session not null</h2>");
+    }
+%>
 
 <div class="limiter">
     <div class="container-login100">
@@ -38,7 +47,7 @@
 					</span>
             </div>
 
-            <form class="login100-form validate-form">
+            <form action="LoginServlet" method="POST" class="login100-form validate-form">
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                     <span class="label-input100">Username</span>
                     <input class="input100" type="text" name="username" placeholder="Enter username">
@@ -73,7 +82,7 @@
                 </div>
             </form>
 
-
+            <div id="errorMessage"></div>
         </div>
     </div>
 </div>
@@ -81,9 +90,34 @@
 <%--===============================================================================================--%>
 <script src="view/Login/loginjs/js/jquery-3.2.1.min.js"></script>
 
-<script src="view/Login/loginjs/js/main.js"></script>
+<!--script src="view/Login/loginjs/js/main.js"></script-->
 
 
+<script type="text/javascript">
 
+    $(document).ready(function(){
+
+        console.log(window.location.toString());
+        $('#errorMessage').empty().append($('<p/>').text(getQueryVariable('msg1') + " " +
+                                                         getQueryVariable('msg2') + " " +
+                                                         getQueryVariable('msg3'))
+                                                    .css({"color":"red"}));
+
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+
+            for(var i=0; i < vars.length; i++){
+                var pair = vars[i].split('=');
+                if(decodeURIComponent(pair[0]) == variable){
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            return "";
+        }
+
+    });
+
+</script>
 </body>
 </html>

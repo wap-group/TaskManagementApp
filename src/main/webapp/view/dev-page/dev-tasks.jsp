@@ -27,7 +27,12 @@
     <script src = "scripts/dataTables.bootstrap4.min.js" type = "text/javascript"></script>
 </head>
 <body>
-
+<%
+    HttpSession s = request.getSession(false);
+    if(s.getAttribute("phone") == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }
+%>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">

@@ -68,10 +68,13 @@ public class DevTaskController extends HttpServlet {
                 }
 
                 ///response.sendRedirect("/view/dev-page/dev-tasks.jsp");
+                response.sendRedirect("/TaskManagementApp_war_exploded/view/dev-page/dev-tasks.jsp");
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }else{
+            response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp?msg1=Incorrect&msg2=Credential&msg3=Inserted.");
         }
         response.sendRedirect("http://localhost:8080/TaskManagementApp_war_exploded/view/dev-page/dev-tasks.jsp");
         //request.getRequestDispatcher("/view/dev-page/dev-tasks.jsp").forward(request, response);

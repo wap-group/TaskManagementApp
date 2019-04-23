@@ -86,14 +86,21 @@ public class UserServices {
             pst.setString(5,user.getAddress().getState());
             pst.executeUpdate();
 
-            JSONObject jsonobject = null;
-            //jarray = SimpleJsonUtils.toJSON(rs);
-
-
 
         }catch(SQLException se){
             System.out.println(se);
+        }finally {
+            try{
+                pst.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
         }
+
+    }
+
+
+    public static void deleteUser(){
 
     }
 }
