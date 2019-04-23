@@ -44,8 +44,7 @@ public class ManageUsersServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         UserServices.insertUser(user);
-        JSONArray ar = UserServices.getUsersJSON();
-        response.getWriter().write(ar.toString());
+        response.getWriter().write("");
 
     }
 

@@ -38,7 +38,7 @@
 					</span>
             </div>
 
-            <form class="login100-form validate-form">
+            <form action="LoginServlet" method="POST" class="login100-form validate-form">
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                     <span class="label-input100">Username</span>
                     <input class="input100" type="text" name="username" placeholder="Enter username">
@@ -81,7 +81,7 @@
 <%--===============================================================================================--%>
 <script src="view/Login/loginjs/js/jquery-3.2.1.min.js"></script>
 
-<script src="view/Login/loginjs/js/main.js"></script>
+<!--script src="view/Login/loginjs/js/main.js"></script-->
 
 
 

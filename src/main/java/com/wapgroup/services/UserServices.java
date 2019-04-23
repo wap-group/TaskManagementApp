@@ -86,10 +86,6 @@ public class UserServices {
             pst.setString(5,user.getAddress().getState());
             pst.executeUpdate();
 
-            JSONObject jsonobject = null;
-            //jarray = SimpleJsonUtils.toJSON(rs);
-
-
 
         }catch(SQLException se){
             System.out.println(se);
