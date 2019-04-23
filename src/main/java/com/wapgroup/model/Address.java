@@ -9,12 +9,18 @@ public class Address {
     private double longtiude;
 
     public Address(String zipcode, String street, String city,
-                   String state, double lat, double longtiude)
-    {
+                   String state){
         this.zipcode = zipcode;
         this.street = street;
         this.city = city;
         this.state = state;
+
+    }
+
+    public Address(String zipcode, String street, String city,
+                   String state, double lat, double longtiude)
+    {
+        this(zipcode, street, city, state);
         this.lat = lat;
         this.longtiude = longtiude;
     }
