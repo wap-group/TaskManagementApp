@@ -93,4 +93,18 @@ public class Task {
     public void setTaskAssigned(Date taskAssigned) {
         this.taskAssigned = taskAssigned;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId=" + taskId +
+                ", taskName='" + taskName + '\'' +
+                ", dueDate=" + dueDate +
+                ", priority=" + priority +
+                ", catagory=" + catagory +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", taskAssigned=" + taskAssigned +
+                '}';
+    }
 }
