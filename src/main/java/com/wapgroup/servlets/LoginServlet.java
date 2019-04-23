@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
                 out.print(json);
                 //getServletContext().getRequestDispatcher("/view/admin/admin.jsp").forward(request, response);
                 //response.sendRedirect("/index.jsp");
-                return;
+                //return;
             }
         }
         //

@@ -3,8 +3,7 @@ import java.sql.*;
 import  java.util.List;
 import java.util.ArrayList;
 import com.wapgroup.database.DatabaseConnection;
-import com.wapgroup.model.Role;
-import com.wapgroup.model.User;
+import com.wapgroup.model.*;
 
 import com.google.gson.Gson;
 
@@ -23,34 +22,49 @@ public class DevTaskController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = "dawit@gmail.com";
+        //email = request.getParameter("email");
 
-        HttpSession session = request.getSession();
-        List<User> users = new ArrayList<>();
-        session.setAttribute("users", users);
+        List<Task> taskList = new ArrayList<>();
+        request.getSession().setAttribute("tasks", taskList);
 
         DatabaseConnection dbCon = DatabaseConnection.getInstance();
         if(dbCon != null) {
             try {
                 Statement stm = dbCon.con.createStatement();
-                ResultSet rows = stm.executeQuery("SELECT * FROM users");
-                while (rows.next()) {
-                    User user = new User();
+                ResultSet result = stm.executeQuery("SELECT * FROM task WHERE devEmail = '" + email + "'");
 
-                    user.setfName(rows.getString("fName"));
-                    user.setlName(rows.getString("lName"));
-                    user.setEmpId(rows.getInt("empId"));
-                    user.setEmail(rows.getString("email"));
-                    user.setPhone(rows.getString("phone"));
+                while (result.next()) {
 
-                    String role = rows.getString("role");
-                    if (role.equals(Role.ADMIN))
-                        user.setRole(Role.ADMIN);
-                    else if (role.equals(Role.PROJECT_MANAGER))
-                        user.setRole(Role.PROJECT_MANAGER);
-                    if (role.equals(Role.DEVELOPER))
-                        user.setRole(Role.DEVELOPER);
+                    Task task = new Task();
 
-                    users.add(user);
+                    task.setTaskId(result.getInt("taskId"));
+                    task.settaskName(result.getString("taskName"));
+                    task.setDueDate(result.getDate("dueDate"));
+                    task.setPriority(result.getInt("priority"));
+
+                    String category = result.getString("category");
+                    System.out.println(category);
+                    if(category.equals(Catagory.PERSONAL.toString()))
+                        task.setCatagory(Catagory.PERSONAL);
+                    if(category.equals(Catagory.WORK.toString()))
+                        task.setCatagory(Catagory.WORK);
+
+                    String status = result.getString("taskStatus");
+                    System.out.println(status);
+                    if(status.equals(Status.NOT_STARTED.toString()))
+                        task.setStatus(Status.NOT_STARTED);
+                    if(status.equals(Status.ON_PROGRESS.toString()))
+                        task.setStatus(Status.ON_PROGRESS);
+                    if(status.equals(Status.COMPLETED.toString()))
+                        task.setStatus(Status.COMPLETED);
+
+                    task.setTaskAssigned(result.getDate("taskAssigned"));
+
+
+                    taskList.add(task);
+                    System.out.println(task);
+
                 }
 
                 ///response.sendRedirect("/view/dev-page/dev-tasks.jsp");
@@ -59,6 +73,8 @@ public class DevTaskController extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        response.sendRedirect("http://localhost:8080/TaskManagementApp_war_exploded/view/dev-page/dev-tasks.jsp");
+        //request.getRequestDispatcher("/view/dev-page/dev-tasks.jsp").forward(request, response);
         //String json = new Gson().toJson(users);
         //response.setContentType("application/json");
         //response.setCharacterEncoding("UTF-8");
