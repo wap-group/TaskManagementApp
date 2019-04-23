@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                   response.sendRedirect("/TaskManagementApp_war_exploded/view/admin/admin.jsp");
             }
         }else{
-            response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp?msg=Incorrect+Credential+Inserted.");
+            response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp?msg1=Incorrect&msg2=Credential&msg3=Inserted.");
         }
         //
 

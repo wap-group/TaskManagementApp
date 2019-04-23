@@ -190,6 +190,13 @@ iframe {
   position: relative;
 }
 
+#errorMessage {
+  text-align: center;
+  font-size: 4em;
+  position: relative;
+}
+
+
 /*==================================================================
 [ Title form ]*/
 .login100-form-title {

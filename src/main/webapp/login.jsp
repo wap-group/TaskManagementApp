@@ -98,8 +98,10 @@
     $(document).ready(function(){
 
         console.log(window.location.toString());
-        $('#errorMessage').empty().append($('<p/>').text(getQueryVariable('msg'))
-            .css({"color":"red"}));
+        $('#errorMessage').empty().append($('<p/>').text(getQueryVariable('msg1') + " " +
+                                                         getQueryVariable('msg2') + " " +
+                                                         getQueryVariable('msg3'))
+                                                    .css({"color":"red"}));
 
         function getQueryVariable(variable) {
             var query = window.location.search.substring(1);
