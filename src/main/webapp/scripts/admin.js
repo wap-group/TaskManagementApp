@@ -1,78 +1,65 @@
 $(document).ready(function(){
 
-    /**
-     * This object controls the nav bar. Implement the add and remove
-     * action over the elements of the nav bar that we want to change.
-     *
-     * @type {{flagAdd: boolean, elements: string[], add: Function, remove: Function}}
-     */
-    var myNavBar = {
+    console.log("page loaded");
 
-        flagAdd: true,
 
-        elements: [],
+    $("jsGrid").jsGrid("option", "data", []);
 
-        init: function (elements) {
-            this.elements = elements;
-        },
 
-        add : function() {
-            if(this.flagAdd) {
-                for(var i=0; i < this.elements.length; i++) {
-                    document.getElementById(this.elements[i]).className += " fixed-theme";
+        $("#jsgrid").jsGrid({
+
+            height: "80%",
+            width: "100%",
+            inserting: true,
+            editing: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 10,
+            controller: {
+                loadData: function(filter){
+                    var data = $.Deferred();
+                    $.ajax({
+                        type: "GET",
+                        url: "../../ManageUsersServlet",
+                        datatype: "json"
+                    }).done(function(response){
+                        data.resolve(response);
+                    });
+                    return data.promise();
+                },
+                insertItem: function (item) {
+                    var data = $.Deferred();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../ManageUsersServlet",
+                        data: item,
+                        datatype: "json"
+                    }).done(function(response){
+                        //data.resolve(response);
+                        setTimeout(function(){$("#jsgrid").jsGrid("loadData")}, 500);
+                    });
+                    // return data.promise();
                 }
-                this.flagAdd = false;
-            }
-        },
+            },
+            fields: [
+                {name: "empId", title: "EmpId", type: "number", width: "60px"},
+                {name: "fName", title: "FName", type: "text", validate: "required", width: "60px"},
+                {name: "lName", title: "LName", type: "text", validate: "required", width: "60px"},
+                {name: "pass_word", title: "Pw", type: "text", validate: "required", width: "50px"},
+                {name: "email", title: "Email", type: "text", validate: "required", width: "100px"},
+                {name: "phone", title: "Phone", type: "text", validate: "required", width: "80px"},
+                {name: "roles", title: "Role", type: "select", validate: "required", valueField: "roles",  width: "80px", items:["admin","project manager", "developer"], autosearch: true, selectedIndex: 0},
+                {name: "zipcode", title: "Zipcode", type: "text", validate: "required", width: "80px"},
+                {name: "street", title: "Street", type: "text", validate: "required", width: "90px"},
+                {name: "city", title: "City", type: "text", validate: "required", width: "80px"},
+                {name: "state", title: "State", type: "text", validate: "required", width: "40px"},
+                {type: "control"}
+            ]
 
-        remove: function() {
-            for(var i=0; i < this.elements.length; i++) {
-                document.getElementById(this.elements[i]).className =
-                    document.getElementById(this.elements[i]).className.replace( /(?:^|\s)fixed-theme(?!\S)/g , '' );
-            }
-            this.flagAdd = true;
-        }
+        });
 
-    };
 
-    /**
-     * Init the object. Pass the object the array of elements
-     * that we want to change when the scroll goes down
-     */
-    myNavBar.init(  [
-        "header",
-        "header-container",
-        "brand"
-    ]);
 
-    /**
-     * Function that manage the direction
-     * of the scroll
-     */
-    function offSetManager(){
+    });
 
-        var yOffset = 0;
-        var currYOffSet = window.pageYOffset;
-
-        if(yOffset < currYOffSet) {
-            myNavBar.add();
-        }
-        else if(currYOffSet == yOffset){
-            myNavBar.remove();
-        }
-
-    }
-
-    /**
-     * bind to the document scroll detection
-     */
-    window.onscroll = function(e) {
-        offSetManager();
-    }
-
-    /**
-     * We have to do a first detectation of offset because the page
-     * could be load with scroll down set.
-     */
-    offSetManager();
-});
