@@ -34,7 +34,7 @@ $(document).ready(function(){
 
         editValue: function(){
             return this._editPicker.datepicker("getDate").toISOString();
-        }
+        },
 
     });
 
@@ -50,7 +50,6 @@ $(document).ready(function(){
         paging: true,
         //filtering: true,
         autoload: true,
-        inserting: true,
         pageSize: 10,
         controller: {
             loadData: function(filter){
@@ -77,23 +76,26 @@ $(document).ready(function(){
                 });
                 // return data.promise();
             },
+
         },
         fields: [
-            {name: "taskId", title: "TaskId", type: "number", width: "60px"},
-            {name: "taskName", title: "TaskName", type: "text", validate: "required", width: "60px"},
-            {name: "dueDate", title: "DueDate", type: "date", validate: "required", width: "60px"},
+            {name: "taskId", title: "TaskId", type: "number", width: "50px", editing: false},
+            {name: "taskName", title: "TaskName", type: "text", validate: "required", width: "60px", editing: false},
+            {name: "dueDate", title: "DueDate", type: "text", validate: "required", width: "50px", editing: false},
 
             /*{name: "pass_word", title: "Pw", type: "text", validate: "required", width: "50px"},
             {name: "email", title: "Email", type: "text", validate: "required", width: "100px"},
             */
-            {name: "priority", title: "Priority", type: "number", validate: "required", width: "50px"},
-            {name: "category", title: "Category", type: "select", validate: "required", valueField: "categories",  width: "80px", items:["Work","Personal"], autosearch: true, selectedIndex: 0},
-            {name: "taskDescription", title: "TaskDescription", type: "text", validate: "required", width: "80px"},
-            {name: "taskStatus", title: "Status", type: "select", validate: "required", valueField: "taskStatus", width: "80px", items:["Not started","In Progress", "Completed"], autosearch: true, selectedIndex: 0},
+            {name: "priority", title: "Priority", type: "number", validate: "required", width: "40px",  editing: false},
+            {name: "category", title: "Category", type: "text", validate: "required", width: "60px",  editing: false},
+            {name: "taskDescription", title: "Description", type: "text", validate: "required", width: "80px",  editing: false},
+            {name: "taskStatus", title: "Status", type: "text", validate: "required", valueField: "taskStatus", width: "60px"},
+           /*
+            {name: "taskStatus", title: "Status", type: "select", validate: "required", valueField: "taskStatus", width: "80px",
+                items:["Not started","In progress", "Completed"], autosearch: true, selectedIndex: 0},*/
 
-            {name: "devEmail", title: "DevEmail", type: "text", validate: "required", width: "80px"},
-            {name: "taskAssigned", title: "DateAssigned", type: "date", validate: "required", width: "40px"},
-            {type: "control"}
+            {name: "taskAssigned", title: "DateAssigned", type: "text", validate: "required", width: "60px",  editing: false},
+            {type: "control", deleteButton: false}
         ]
 
     });

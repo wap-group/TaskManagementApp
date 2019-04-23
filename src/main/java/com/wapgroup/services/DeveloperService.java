@@ -25,9 +25,9 @@ public class DeveloperService {
 
         try{
             connection = DatabaseConnection.getInstance();
-            pst = connection.con.prepareStatement("SELECT * FROM task");
-//            pst = connection.con.prepareStatement("SELECT taskId, taskName, dueDate, priority," +
-//                    "category, taskDescription, taskStatus,devEmail, taskAssigned FROM task");
+            //pst = connection.con.prepareStatement("SELECT * FROM task");
+            pst = connection.con.prepareStatement("SELECT taskId, taskName, dueDate, priority," +
+                    "category, taskDescription, taskStatus, taskAssigned FROM task");
             rs = pst.executeQuery();
             JSONObject jsonobject = null;
 
@@ -39,7 +39,7 @@ public class DeveloperService {
                 for(int i = 0; i < metaData.getColumnCount(); i++){
                     int column = i + 1;
 
-                    if(column == 3 || column == 9){
+                    if(column == 3 || column == 8){
 
                         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date date = null;
