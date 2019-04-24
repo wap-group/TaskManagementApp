@@ -1,5 +1,6 @@
 package com.wapgroup.services;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.wapgroup.database.DatabaseConnection;
 import com.wapgroup.model.Task;
 import com.wapgroup.model.User;
