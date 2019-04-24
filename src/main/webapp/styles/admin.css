@@ -161,7 +161,12 @@
 /*    border: 1px solid #AAA;*/
 /*    padding: 0 7px;*/
 /*}*/
-
+.content-area{
+    margin-left:10%;
+    margin-right: 10%;
+    width: 80%;
+    text-align: center;
+}
 .jsgrid-cell {
     overflow: hidden;
 }

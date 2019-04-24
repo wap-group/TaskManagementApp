@@ -17,17 +17,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="scripts/jquery.validate.js"></script>
-    <script src="scripts/dev-tasks.js"></script>
     <link rel="stylesheet" type="text/css" href="styles/dev-tasks.css" media="screen" />
-    <script src="scripts/jquery-3.3.1.js"></script>
-    <script src="scripts//jquery.dataTables.min.js"></script>
-    <script src = "scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type = "text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" type = "text/javascript"></script>
+    <script src="scripts/jquery.validate.js" type = "text/javascript"></script>
+    <script src="scripts/dev-tasks.js" type = "text/javascript"></script>
+    <script src="scripts/jquery-3.3.1.js" type = "text/javascript"></script>
+    <script src="scripts/jquery.dataTables.min.js" type = "text/javascript"></script>
+    <script src = "scripts/dataTables.bootstrap4.min.js" type = "text/javascript"></script>
 </head>
 <body>
-
+<%
+    HttpSession s = request.getSession(false);
+    if(s.getAttribute("phone") == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }
+%>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -102,13 +107,11 @@
                             <th style="text-align: center;">Priority</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Edit Status</th>
-
                         </tr>
                         </thead>
 
                         <tbody>
-
-                            <c:forEach var = "task" items = "${tasks}">
+                        <c:forEach var = "task" items = "${tasks}">
                             <tr >
                                 <td> ${task.getTaskId()} </td>
                                 <td> ${task.gettaskName()} </td>
@@ -118,55 +121,11 @@
                                 <td> ${task.getPriority()} </td>
                                 <td class = "status" > ${task.getStatus().toString()} </td>
                                 <td>
-                                    <input type = "button" class = "editStatus" style = "width: 100%" value = "Edit"></td>
+                                    <input type = "button" class = "editStatus" style = "width: 100%; margin: 0;"
+                                           value = "Edit"></td>
                             </tr>
-                            </c:forEach>
-
+                        </c:forEach>
                         </tbody>
-
-                    <%--
-                      <%List<Task> tasks = (List)session.getAttribute("tasks");
-                        Iterator it = tasks.iterator();
-                          while(it.hasNext()) {
-                              Task task = (Task) it.next();
-                              int taskId = task.getTaskId();
-                              String name = task.gettaskName();
-                              String category = task.getCatagory().toString();
-                              Date dueDate = task.getDueDate();
-                              Date dateAssigned = task.getTaskAssigned();
-                              int priority  = task.getPriority();
-                              String status = task.getStatus().toString();
-
-                              JSONObject json = new JSONObject();
-                              json.put("id", taskId);
-                              json.put("name", name);
-                              json.put("category", category);
-                              json.put("dueDate", dueDate);
-                              json.put("dateAssigned", dateAssigned);
-                              json.put("priority", priority);
-                              json.put("status", status);
-
-
-                              //response.getWriter().print(json);
-                              //response.getWriter().flush();
-                              //response.getWriter().close();
-                              %>
-
-                        <tbody>
-                           <tr >
-                               <td> <%= taskId %> </td>
-                               <td> <%= name %> </td>
-                               <td> <%= category %> </td>
-                               <td> <%= dueDate %> </td>
-                               <td> <%= dateAssigned %> </td>
-                               <td> <%= priority%> </td>
-                               <td class = "status" > <%= status %> </td>
-                               <td>
-                                   <input type = "button" class = "editStatus" style = "width: 100%" value = "Edit"></td>
-                            </tr>
-                        </tbody>
-                          <%} %>
-                          --%>
                     </table>
 
                 </section>

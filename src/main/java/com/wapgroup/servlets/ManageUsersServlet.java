@@ -44,8 +44,7 @@ public class ManageUsersServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         UserServices.insertUser(user);
-        JSONArray ar = UserServices.getUsersJSON();
-        response.getWriter().write(ar.toString());
+        response.getWriter().write("");
 
     }
 
@@ -56,6 +55,13 @@ public class ManageUsersServlet extends HttpServlet {
         JSONArray ar = UserServices.getUsersJSON();
         System.out.println("*** " + ar.toString());
         response.getWriter().write(ar.toString());
+
+    }
+
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
     }
 }
