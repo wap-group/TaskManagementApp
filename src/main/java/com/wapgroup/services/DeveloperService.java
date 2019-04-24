@@ -70,7 +70,7 @@ public class DeveloperService {
     }
 
 
-    public static void insertTask(Task task){
+    public static void updateStatus(Task task){
 
         DatabaseConnection connection = null;
         PreparedStatement pst = null;
@@ -78,18 +78,13 @@ public class DeveloperService {
 
         try{
             connection = DatabaseConnection.getInstance();
-            pst = connection.con.prepareStatement("INSERT into task (taskName, dueDate, priorty, category, " +
-                    "taskDescription, taskStatus, devEmail, taskAssigned ) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, task.gettaskName());
-            pst.setDate(2, new java.sql.Date(task.getDueDate().getTime()));
-            pst.setInt(3,task.getPriority());
-            pst.setString(4, task.getCatagory().toString());
-            pst.setString(5,task.getDescription());
-            pst.setString(6,task.getStatus().toString());
-            pst.setString(7,task.getDevEmail());
-            pst.setDate(8, new java.sql.Date(task.getTaskAssigned().getTime()));
+            pst = connection.con.prepareStatement("UPDATE task " +
+                    "Set taskStatus = ? WHERE taskId = ?");
+            pst.setString(2,task.getStatus().toString());
+            pst.setInt(1,task.getTaskId());
             pst.executeUpdate();
-
+            System.out.println("Update status ...");
+            System.out.println(task.getStatus());
 
         }catch(SQLException se){
             System.out.println(se);

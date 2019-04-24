@@ -48,11 +48,33 @@ $(document).ready(function(){
         editing: true,
         sorting: true,
         paging: true,
-        //filtering: true,
+        filtering: true,
+        filterRowRenderer: null,
+        filterRowClass: "jsgrid-filter-row",
         autoload: true,
         pageSize: 10,
         controller: {
-            loadData: function(filter){
+            loadData: function(filter) {
+                var d = $.Deferred();
+
+                // server-side filtering
+                $.ajax({
+                    type: "GET",
+                    url: "../../DeveloperServlet",
+                    data: filter,
+                    dataType: "json"
+                }).done(function(result) {
+                    // client-side filtering
+                    result = $.grep(result, function(item) {
+                        return item.SomeField === filter.SomeField;
+                    });
+
+                    d.resolve(result);
+                })
+
+                return d.promise();
+            },
+           /* loadData: function(filter){
                 let data = $.Deferred();
                 $.ajax({
                     type: "GET",
@@ -62,7 +84,8 @@ $(document).ready(function(){
                     data.resolve(response);
                 });
                 return data.promise();
-            },
+            },*/
+
             insertItem: function (item) {
                 let data = $.Deferred();
                 $.ajax({
@@ -74,14 +97,26 @@ $(document).ready(function(){
                     //data.resolve(response);
                     setTimeout(function(){$("#task-grid").jsGrid("loadData")}, 500);
                 });
-                // return data.promise();
             },
 
+            updateItem: function(item) {
+            let status = item.taskStatus;
+                console.log("Upated value: " + status);
+                if(status === "Not started" || status === "In progress" || status === "Completed"){
+                return $.ajax({
+                    type: "PUT",
+                    url: "../../DeveloperServlet",
+                    data: item
+                }); }else
+                    alert("Status value must be Not started, In progress or Completed");
+            }
+
         },
+
         fields: [
-            {name: "taskId", title: "TaskId", type: "number", width: "50px", editing: false},
-            {name: "taskName", title: "TaskName", type: "text", validate: "required", width: "60px", editing: false},
-            {name: "dueDate", title: "DueDate", type: "text", validate: "required", width: "50px", editing: false},
+            {name: "taskId", title: "Task Id", type: "number", width: "50px", editing: false},
+            {name: "taskName", title: "Task Name", type: "text", validate: "required", width: "60px", editing: false},
+            {name: "dueDate", title: "Du eDate", type: "text", validate: "required", width: "50px", editing: false},
 
             /*{name: "pass_word", title: "Pw", type: "text", validate: "required", width: "50px"},
             {name: "email", title: "Email", type: "text", validate: "required", width: "100px"},
@@ -89,12 +124,12 @@ $(document).ready(function(){
             {name: "priority", title: "Priority", type: "number", validate: "required", width: "40px",  editing: false},
             {name: "category", title: "Category", type: "text", validate: "required", width: "60px",  editing: false},
             {name: "taskDescription", title: "Description", type: "text", validate: "required", width: "80px",  editing: false},
-            {name: "taskStatus", title: "Status", type: "text", validate: "required", valueField: "taskStatus", width: "60px"},
+            {name: "taskStatus", title: "Status", type: "text", valueField: "taskStatus", width: "60px"},
            /*
             {name: "taskStatus", title: "Status", type: "select", validate: "required", valueField: "taskStatus", width: "80px",
                 items:["Not started","In progress", "Completed"], autosearch: true, selectedIndex: 0},*/
 
-            {name: "taskAssigned", title: "DateAssigned", type: "text", validate: "required", width: "60px",  editing: false},
+            {name: "taskAssigned", title: "Date Assigned", type: "text", validate: "required", width: "60px",  editing: false},
             {type: "control", deleteButton: false}
         ]
 

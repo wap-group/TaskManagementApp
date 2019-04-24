@@ -56,7 +56,7 @@ public class DeveloperServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        DeveloperService.insertTask(task);
+        DeveloperService.updateStatus(task);
         JSONArray ar = DeveloperService.getTaskJSON();
         response.getWriter().write(ar.toString());
 
