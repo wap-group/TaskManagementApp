@@ -48,11 +48,18 @@ $(document).ready(function(){
         editing: true,
         sorting: true,
         paging: true,
-        //filtering: true,
+        filtering: true,
         autoload: true,
         inserting: true,
         pageSize: 10,
         controller: {
+            data:gridData,
+            loadData: function (filter) {
+                return $.grep(this.data, function (item) {
+                    return (!filter.Name || item.Name.indexOf(filter.Name) >= 0);
+                });
+            },
+
             loadData: function(filter){
                 let data = $.Deferred();
                 $.ajax({

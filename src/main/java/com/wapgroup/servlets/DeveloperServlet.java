@@ -48,18 +48,15 @@ public class DeveloperServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        Task task = new Task(taskId, taskName, dueDate, priority,
-                Catagory.StringToCategory (category),
-                taskDescription, Status.stringToStatus(taskStatus), devEmail, dateAssigned);
+        Task task = new Task(taskId, taskName, dueDate, priority, Catagory.StringToCategory(category),taskDescription, Status.stringToStatus(taskStatus), devEmail, dateAssigned);
 
 
-        System.out.println("------ " + taskId + "  " + taskName +
-                "  " + dueDate + "  " + priority + "  " +
+        System.out.println("------ " + taskId + "  " + taskName + "  " + dueDate + "  " + priority + "  " +
                 category + "  " + taskDescription + "  " + devEmail + " " + dateAssigned);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        DeveloperService.insertTask(task);
+        DeveloperService.updateStatus(task);
         JSONArray ar = DeveloperService.getTaskJSON();
         response.getWriter().write(ar.toString());
 
