@@ -6,20 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    HttpSession s = request.getSession(false);
+    if(s.getAttribute("phone") == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }
+%>
 <html>
 <head>
-    <title>PM-Page</title>
+    <title>DV-Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <link type="text/css" rel="stylesheet" href="../../scripts/jsgrid/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="../../scripts/jsgrid/jsgrid-theme.min.css" />
     <link type="text/css" rel="stylesheet" href="../../styles/admin.css">
-    <link type="text/css" rel="stylesheet" href="scripts/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link type="text/css" rel="stylesheet" href="jquery-ui.min.css">
 
-    <script type="text/javascript" src="scripts/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
     <script type="text/javascript" src="../../scripts/jsgrid/jsgrid.min.js"></script>
     <script type="text/javascript" src="dev-page.js"></script>
 </head>

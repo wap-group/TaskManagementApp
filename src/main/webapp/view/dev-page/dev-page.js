@@ -34,7 +34,7 @@ $(document).ready(function(){
 
         editValue: function(){
             return this._editPicker.datepicker("getDate").toISOString();
-        }
+        },
 
     });
 
@@ -48,22 +48,33 @@ $(document).ready(function(){
         editing: true,
         sorting: true,
         paging: true,
-        //filtering: true,
+        filtering: true,
+        filterRowRenderer: null,
+        filterRowClass: "jsgrid-filter-row",
         autoload: true,
-        inserting: true,
         pageSize: 10,
         controller: {
-            loadData: function(filter){
-                let data = $.Deferred();
+            loadData: function(filter) {
+                let d = $.Deferred();
+
+                // server-side filtering
                 $.ajax({
                     type: "GET",
                     url: "../../DeveloperServlet",
-                    datatype: "json"
-                }).done(function(response){
-                    data.resolve(response);
-                });
-                return data.promise();
+                    data: filter,
+                    dataType: "json"
+                }).done(function(result) {
+                    // client-side filtering
+                    result = $.grep(result, function(item) {
+                        return item.SomeField === filter.SomeField;
+                    });
+
+                    d.resolve(result);
+                })
+
+                return d.promise();
             },
+
             insertItem: function (item) {
                 let data = $.Deferred();
                 $.ajax({
@@ -75,25 +86,44 @@ $(document).ready(function(){
                     //data.resolve(response);
                     setTimeout(function(){$("#task-grid").jsGrid("loadData")}, 500);
                 });
-                // return data.promise();
             },
+
+            updateItem: function(item) {
+                //let status = item.taskStatus;
+                //console.log("Upated value: " + status);
+                //if(status === "Not started" || status === "In progress" || status === "Completed"){
+                var data = $.Deferred();
+                return $.ajax({
+                    type: "PUT",
+                    url: "../../DeveloperServlet",
+                    data: item,
+                    datatype: "json"
+                }).done(function(response){
+
+                });
+                return data.promise();
+            }
+
         },
+
         fields: [
-            {name: "taskId", title: "TaskId", type: "number", width: "60px"},
-            {name: "taskName", title: "TaskName", type: "text", validate: "required", width: "60px"},
-            {name: "dueDate", title: "DueDate", type: "date", validate: "required", width: "60px"},
+            {name: "taskId", title: "Task Id", type: "number", width: "50px", editing: false},
+            {name: "taskName", title: "Task Name", type: "text", validate: "required", width: "60px", editing: false},
+            {name: "dueDate", title: "Du eDate", type: "text", validate: "required", width: "50px", editing: false},
 
             /*{name: "pass_word", title: "Pw", type: "text", validate: "required", width: "50px"},
             {name: "email", title: "Email", type: "text", validate: "required", width: "100px"},
             */
-            {name: "priority", title: "Priority", type: "number", validate: "required", width: "50px"},
-            {name: "category", title: "Category", type: "select", validate: "required", valueField: "categories",  width: "80px", items:["Work","Personal"], autosearch: true, selectedIndex: 0},
-            {name: "taskDescription", title: "TaskDescription", type: "text", validate: "required", width: "80px"},
-            {name: "taskStatus", title: "Status", type: "select", validate: "required", valueField: "taskStatus", width: "80px", items:["Not started","In Progress", "Completed"], autosearch: true, selectedIndex: 0},
+            {name: "priority", title: "Priority", type: "number", validate: "required", width: "40px",  editing: false},
+            {name: "category", title: "Category", type: "text", validate: "required", width: "60px",  editing: false},
+            {name: "taskDescription", title: "Description", type: "text", validate: "required", width: "80px",  editing: false},
+            {name: "taskStatus", title: "Status", type: "text", valueField: "taskStatus", width: "60px"},
+           /*
+            {name: "taskStatus", title: "Status", type: "select", validate: "required", valueField: "taskStatus", width: "80px",
+                items:["Not started","In progress", "Completed"], autosearch: true, selectedIndex: 0},*/
 
-            {name: "devEmail", title: "DevEmail", type: "text", validate: "required", width: "80px"},
-            {name: "taskAssigned", title: "DateAssigned", type: "date", validate: "required", width: "40px"},
-            {type: "control"}
+            {name: "taskAssigned", title: "Date Assigned", type: "text", validate: "required", width: "60px",  editing: false},
+            {type: "control", deleteButton: false}
         ]
 
     });

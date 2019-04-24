@@ -4,6 +4,7 @@ import com.wapgroup.model.Address;
 import com.wapgroup.model.Role;
 import com.wapgroup.model.User;
 import com.wapgroup.services.UserServices;
+import com.wapgroup.services.Utils;
 import org.json.JSONArray;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet("/ManageUsersServlet")
 public class ManageUsersServlet extends HttpServlet {
@@ -58,10 +60,55 @@ public class ManageUsersServlet extends HttpServlet {
 
     }
 
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException
+    {
 
+        System.out.println("**** Inside doPut. hurrayyyyyyy");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        Map<String, String> dataMap = Utils.reformatAdmin(Utils.getParameterMap(request));
+
+        int empId = Integer.parseInt(dataMap.get("empId"));
+        String fName = dataMap.get("fName");
+        String lName = dataMap.get("lName");
+        String pass_word = dataMap.get("pass_word");
+        String email = dataMap.get("email");
+        String phone = dataMap.get("phone");
+        String roles = dataMap.get("roles");
+        String zipcode = dataMap.get("zipcode");
+        String street = dataMap.get("street");
+        String city = dataMap.get("city");
+        String state = dataMap.get("state");
+
+        System.out.println("----- " + empId + " " + fName + " " + lName + " "
+                                    + pass_word + " " + email + " " + phone + " "
+                                    + roles + " " + zipcode + " " + street + " "
+                                    + city + " " + state + " ");
+
+        User user = new User(fName, lName, empId, pass_word,
+                new Address(zipcode, street, city, state),
+                Role.stringToRole(roles), phone, email);
+
+        UserServices.updateUser(user);
+
+    }
+
+    protected void doDelete(HttpServletRequest request,
+                            HttpServletResponse response)
+            throws ServletException, IOException
+    {
+
+        System.out.println("**** Inside doDelete. hurrayyyyyyy");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        Map<String, String> dataMap = Utils.getParameterMap(request);
+        int empId = Integer.parseInt(dataMap.get("empId"));
+
+        UserServices.deleteUser(empId);
+        response.getWriter().write("");
     }
 }

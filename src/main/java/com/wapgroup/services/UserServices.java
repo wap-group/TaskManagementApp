@@ -96,8 +96,72 @@ public class UserServices {
 
     }
 
+    public static void updateUser(User user){
 
-    public static void deleteUser(){
+        DatabaseConnection connection = null;
+        PreparedStatement pst = null;
+
+        try{
+
+            connection = DatabaseConnection.getInstance();
+            pst = connection.con.prepareStatement("UPDATE address SET zipcode=?, street=?, city=?, state=? WHERE empId=?");
+            pst.setString(1, user.getAddress().getZipcode());
+            pst.setString(2, user.getAddress().getStreet());
+            pst.setString(3, user.getAddress().getCity());
+            pst.setString(4, user.getAddress().getState());
+            pst.setInt(5, user.getEmpId());
+            pst.executeUpdate();
+
+            pst = connection.con.prepareStatement("UPDATE users SET fName=?, lName=?, pass_word=?, email=?, phone=?, roles=? WHERE empId=?");
+            pst.setString(1, user.getfName());
+            pst.setString(2, user.getlName());
+            pst.setString(3, user.getPassword());
+            pst.setString(4, user.getEmail());
+            pst.setString(5, user.getPhone());
+            pst.setString(6, user.getRole().toString());
+            pst.setInt(7, user.getEmpId());
+            pst.executeUpdate();
+
+
+        }catch(SQLException se){
+
+            System.out.println(se);
+        }finally {
+            try{
+                pst.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
+        }
+
+    }
+
+
+    public static void deleteUser(int id){
+
+        DatabaseConnection connection = null;
+        PreparedStatement pst = null;
+
+        try{
+
+            connection = DatabaseConnection.getInstance();
+            pst = connection.con.prepareStatement("DELETE FROM address WHERE empId=?");
+            pst.setInt(1, id);
+            pst.executeUpdate();
+
+            pst = connection.con.prepareStatement("DELETE FROM users WHERE empId=?");
+            pst.setInt(1, id);
+            pst.executeUpdate();
+
+        }catch(SQLException se){
+            System.out.println(se);
+        }finally {
+            try{
+                pst.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
+        }
 
     }
 }

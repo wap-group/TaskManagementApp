@@ -26,14 +26,6 @@
 </head>
 <body>
 
-<!--%
-
-    out.println("empId: " + request.getParameter("empid"));
-    out.println("email: " + request.getParameter("email"));
-    out.println("fname: " + request.getParameter("fname"));
-    out.println("lname: " + request.getParameter("lname"));
-%-->
-
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
