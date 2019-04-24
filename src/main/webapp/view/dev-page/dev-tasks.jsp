@@ -23,7 +23,7 @@
     <script src="scripts/jquery.validate.js" type = "text/javascript"></script>
     <script src="scripts/dev-tasks.js" type = "text/javascript"></script>
     <script src="scripts/jquery-3.3.1.js" type = "text/javascript"></script>
-    <script src="scripts//jquery.dataTables.min.js" type = "text/javascript"></script>
+    <script src="scripts/jquery.dataTables.min.js" type = "text/javascript"></script>
     <script src = "scripts/dataTables.bootstrap4.min.js" type = "text/javascript"></script>
 </head>
 <body>

@@ -12,9 +12,6 @@ import java.sql.ResultSetMetaData;
 
 public class UserServices {
 
-
-
-
     public static JSONArray getUsersJSON(){
         JSONArray jarray = new JSONArray();
         DatabaseConnection connection = null;

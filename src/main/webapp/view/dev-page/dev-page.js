@@ -54,7 +54,100 @@ $(document).ready(function(){
         autoload: true,
         pageSize: 10,
         controller: {
-            loadData: function(filter) {
+            loadData: function (filter) {
+                criteria = filter;
+                let data = $.Deferred();
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: "../../DeveloperServlet",
+                    dataType: "json"
+                }).done(function(response){
+                    let res = [];
+                    if(criteria.taskId !== undefined) {
+                        response.forEach(function(element) {
+
+                            if((element.taskId.toString()).indexOf(criteria.taskId) > -1){
+                                res.push(element);
+                                response = res;
+                            }
+                        }, this);
+                    }
+                    else res = response;
+                    if(criteria.taskName !== "") {
+                        res= [];
+                        response.forEach(function(element) {
+                            if(element.taskName.indexOf(criteria.taskName) > -1)
+                                res.push(element);
+                                response = res;
+                        }, this);
+                    }
+                    else res = response;
+
+                    if(criteria.dueDate !== "") {
+                        res= [];
+                        response.forEach(function(element) {
+                            if(element.dueDate.indexOf(criteria.dueDate) > -1)
+                                res.push(element);
+                                response = res;
+                        }, this);
+                    }
+                    else res = response;
+                    if(criteria.priority !== undefined) {
+                        res= [];
+                        response.forEach(function(element) {
+                            if((element.priority.toString()).indexOf(criteria.priority) > -1)
+                                res.push(element);
+                                response = res;
+                        }, this);
+                    }
+                    else res = response;
+
+                    if(criteria.category !== "") {
+                        res= [];
+                        response.forEach(function(element) {
+                            if(element.category.indexOf(criteria.category) > -1)
+                                res.push(element);
+                                response = res;
+                        }, this);
+                    }
+                    else res = response;
+
+                    if(criteria.taskDescription !== "") {
+                        res= [];
+                        response.forEach(function(element) {
+                            if(element.taskDescription.indexOf(criteria.category) > -1)
+                                res.push(element);
+                            response = res;
+                        }, this);
+                    }
+                    else res = response;
+
+                    if(criteria.taskStatus !== "") {
+                        res= [];
+                        response.forEach(function(element) {
+                            if(element.taskStatus.indexOf(criteria.taskStatus) > -1)
+                                res.push(element);
+                            response = res;
+                        }, this);
+                    }
+                    else res = response
+
+                    if(criteria.taskAssigned !== "") {
+                        res= [];
+                        response.forEach(function(element) {
+                            if(element.taskAssigned.indexOf(criteria.taskAssigned) > -1)
+                                res.push(element);
+                            response = res;
+                        }, this);
+                    }
+                    else res = response
+
+                    data.resolve(response);
+                });
+                return data.promise();
+            },
+/*            loadData: function(filter) {
                 let d = $.Deferred();
 
                 // server-side filtering
@@ -74,7 +167,7 @@ $(document).ready(function(){
 
                 return d.promise();
             },
-
+*/
             insertItem: function (item) {
                 let data = $.Deferred();
                 $.ajax({
@@ -89,21 +182,22 @@ $(document).ready(function(){
             },
 
             updateItem: function(item) {
-                //let status = item.taskStatus;
-                //console.log("Upated value: " + status);
-                //if(status === "Not started" || status === "In progress" || status === "Completed"){
-                var data = $.Deferred();
-                return $.ajax({
-                    type: "PUT",
-                    url: "../../DeveloperServlet",
-                    data: item,
-                    datatype: "json"
-                }).done(function(response){
-
-                });
-                return data.promise();
+                let status = item.taskStatus;
+                console.log("Upated value: " + status);
+                if (status === "Not started" || status === "In progress" || status === "Completed") {
+                    let data = $.Deferred();
+                    return $.ajax({
+                        type: "PUT",
+                        url: "../../DeveloperServlet",
+                        data: item,
+                        datatype: "json"
+                    }).done(function (response) {
+                        alert("Task status updated to: " + status);
+                    });
+                    return data.promise();
+                } else
+                    alert("Please input task status as Not started, In progress or Completed");
             }
-
         },
 
         fields: [
