@@ -4,6 +4,7 @@ import com.wapgroup.model.*;
 import com.wapgroup.services.DeveloperService;
 import com.wapgroup.services.DeveloperService;
 import com.wapgroup.services.UserServices;
+import com.wapgroup.services.Utils;
 import org.json.JSONArray;
 
 import javax.servlet.ServletException;
@@ -15,52 +16,13 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
 @WebServlet("/DeveloperServlet")
 public class DeveloperServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("******* Inside do post.");
-
-        int taskId = -1;
-        String taskName = request.getParameter("taskName");
-        String date1 = request.getParameter("dueDate");
-        Date dueDate = null;
-        try{
-            dueDate = new SimpleDateFormat("MM-DD-YYYY").parse(date1);
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
-        int priority = parseInt(request.getParameter("priority"));
-
-        String category = request.getParameter("category");
-        //System.out.println("******* roles " + roles);
-        String taskDescription = request.getParameter("taskDescription");
-        String taskStatus = request.getParameter("taskStatus");
-        String devEmail = request.getParameter("devEmail");
-        String taskAssigned = request.getParameter("taskAssigned");
-        Date dateAssigned = null;
-        try{
-            dateAssigned = new SimpleDateFormat("MM-DD-YYYY").parse(taskAssigned);
-        } catch(ParseException e){
-            e.printStackTrace();
-        }
-
-        Task task = new Task(taskId, taskName, dueDate, priority, Catagory.StringToCategory(category),taskDescription, Status.stringToStatus(taskStatus), devEmail, dateAssigned);
-
-
-        System.out.println("------ " + taskId + "  " + taskName + "  " + dueDate + "  " + priority + "  " +
-                category + "  " + taskDescription + "  " + devEmail + " " + dateAssigned);
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        DeveloperService.updateStatus(task);
-        JSONArray ar = DeveloperService.getTaskJSON();
-        response.getWriter().write(ar.toString());
-
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -69,6 +31,30 @@ public class DeveloperServlet extends HttpServlet {
         JSONArray ar = DeveloperService.getTaskJSON();
         System.out.println("*** " + ar.toString());
         response.getWriter().write(ar.toString());
+
+    }
+
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+
+        System.out.println("**** Inside doPut. hurrayyyyyyy");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        Map<String, String> dataMap = Utils.reformatDeveloper(Utils.getParameterMap(request));
+
+        int taskId = Integer.parseInt(dataMap.get("taskId"));
+
+        String status = dataMap.get("taskStatus");
+
+        System.out.println("----- " + taskId + " " + status + "-------");
+
+        Task task = new Task();
+        task.setTaskId(taskId);
+        task.setStatus(Status.stringToStatus(status));
+
+        DeveloperService.updateStatus(task);
+        response.getWriter().write("");
 
     }
 }

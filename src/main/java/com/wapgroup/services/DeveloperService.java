@@ -75,13 +75,12 @@ public class DeveloperService {
         DatabaseConnection connection = null;
         PreparedStatement pst = null;
 
-
         try{
             connection = DatabaseConnection.getInstance();
             pst = connection.con.prepareStatement("UPDATE task " +
                     "Set taskStatus = ? WHERE taskId = ?");
-            pst.setString(2,task.getStatus().toString());
-            pst.setInt(1,task.getTaskId());
+            pst.setString(1,task.getStatus().toString());
+            pst.setInt(2,task.getTaskId());
             pst.executeUpdate();
             System.out.println("Update status ...");
             System.out.println(task.getStatus());

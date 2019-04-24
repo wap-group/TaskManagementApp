@@ -89,15 +89,19 @@ $(document).ready(function(){
             },
 
             updateItem: function(item) {
-            let status = item.taskStatus;
-                console.log("Upated value: " + status);
-                if(status === "Not started" || status === "In progress" || status === "Completed"){
+                //let status = item.taskStatus;
+                //console.log("Upated value: " + status);
+                //if(status === "Not started" || status === "In progress" || status === "Completed"){
+                var data = $.Deferred();
                 return $.ajax({
                     type: "PUT",
                     url: "../../DeveloperServlet",
-                    data: item
-                }); }else
-                    alert("Status value must be Not started, In progress or Completed");
+                    data: item,
+                    datatype: "json"
+                }).done(function(response){
+
+                });
+                return data.promise();
             }
 
         },

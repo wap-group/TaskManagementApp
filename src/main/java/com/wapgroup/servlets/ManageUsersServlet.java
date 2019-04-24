@@ -69,7 +69,7 @@ public class ManageUsersServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Map<String, String> dataMap = Utils.getParameterMap(request);
+        Map<String, String> dataMap = Utils.reformatAdmin(Utils.getParameterMap(request));
 
         int empId = Integer.parseInt(dataMap.get("empId"));
         String fName = dataMap.get("fName");

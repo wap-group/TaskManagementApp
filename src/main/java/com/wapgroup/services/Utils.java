@@ -30,7 +30,7 @@ public class Utils {
                                     .limit(2)
                                     .trimResults())
                     .split(data);
-            return reformat(dataMap);
+            return dataMap;
 
         }catch(IOException ioe){
             System.out.println("IOException " + ioe);
@@ -47,7 +47,7 @@ public class Utils {
         return null;
     }
 
-    private static Map<String, String> reformat(Map<String, String> x){
+    public static Map<String, String> reformatAdmin(Map<String, String> x){
         Map<String, String> updated = new HashMap<>();
 
         for(Map.Entry<String, String> entry: x.entrySet()){
@@ -59,6 +59,18 @@ public class Utils {
         updated.replace("state", addSpace(x.get("state")));
         updated.replace("roles", addSpace(x.get("roles")));
 
+        return Collections.unmodifiableMap(updated);
+    }
+
+    public static Map<String, String> reformatDeveloper(Map<String, String> x){
+
+        Map<String, String> updated = new HashMap<>();
+
+        for(Map.Entry<String, String> entry: x.entrySet()){
+            updated.put(entry.getKey(), entry.getValue());
+        }
+
+        updated.replace("taskStatus", addSpace(x.get("taskStatus")));
         return Collections.unmodifiableMap(updated);
     }
 
