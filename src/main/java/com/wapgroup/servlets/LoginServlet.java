@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             }else if(user.getRole().toString().equals("developer")){
 
                 response.setContentType("text/html");
-                response.sendRedirect("/TaskManagementApp_war_exploded/view/dev-tasks/dev-tasks.jsp");
+                response.sendRedirect("/TaskManagementApp_war_exploded/view/dev-page/dev-page.jsp");
             }
         }else{
             response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp?msg1=Incorrect&msg2=Credential&msg3=Inserted.");
