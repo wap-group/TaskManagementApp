@@ -10,12 +10,15 @@
 <head>
     <title>Manage Team And Task</title>
     <script src="../../scripts/jquery-3.2.1.min.js"></script>
+    <script src="../../scripts/jsgrid/jsgrid.js"></script>
+    <script  src="../../scripts/DeveloperList.js"></script>
+    <script  src="../../scripts/TaskList.js"></script>
+    <script  src="../../scripts/TeamList.js"></script>
     <link href="../../styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../scripts/jsgrid/jsgrid.css" rel="stylesheet" type="text/css">
     <link href="../../styles/style.css" rel="stylesheet" type="text/css">
     <link href="../../styles/Display.css" rel="stylesheet" type="text/css">
-    <link href="../../styles/table.css" rel="stylesheet" type="text/css">
     <script src="../../ourscript/ProjectManagerDashbord.js"></script>
-
 </head>
 <body>
 <div>

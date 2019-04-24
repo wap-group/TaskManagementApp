@@ -3,6 +3,7 @@ package com.wapgroup.servlets;
 import com.google.gson.Gson;
 import com.wapgroup.service.ProjectManagerDataService;
 import com.wapgroup.model.AssignTeam;
+import org.json.JSONArray;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,15 @@ public class ProjectManagerTeamAssignServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            doPost(request, response);
+        // doPost(request, response);
+        ProjectManagerDataService pmds = new ProjectManagerDataService();
+        //List<Task> taskList = pmds.getTaskList();
+        JSONArray taskList = pmds.getList("Select * from assignteam");
+        /*Gson gson = new Gson();
+        String json = gson.toJson(taskList);
+        System.out.println("JSON " + json);*/
+        System.out.println("JSONArray " + taskList.toString());
+        request.getRequestDispatcher("view/projectmanagernew/TeamAssign.jsp").forward(request, response);
+        response.getWriter().write(taskList.toString());
     }
 }

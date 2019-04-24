@@ -20,7 +20,7 @@ $(function() {
         $("#taskCreateDiv").hide();
         $("#taskAssignDiv").hide();
         $("#taskListDiv").show();
-        $.get("http://localhost:8080/pm-task-list").done(function (data) {
+        /*$.get("http://localhost:8080/pm-task-list").done(function (data) {
 
             console.log(data);
             let divObject = $("#taskListDiv");
@@ -29,7 +29,7 @@ $(function() {
 
         }).fail(function (err) {
             console.log("ERR: "+err);
-        });
+        });*/
     });
 
     $("#manageTeam").on('click', function () {
@@ -62,7 +62,7 @@ $(function() {
         $("#teamAssignDiv").hide();
         $("#teamListDeveloperDiv").hide();
 
-        $.get("http://localhost:8080/pm-team-list").done(function (data) {
+       /* $.get("http://localhost:8080/pm-team-list").done(function (data) {
 
             console.log(data);
             let divObject = $("#teamListTeamDiv");
@@ -71,7 +71,7 @@ $(function() {
 
         }).fail(function (err) {
             console.log("ERR: "+err);
-        });
+        });*/
     });
 
     $("#listDeveloper").on('click', function () {
@@ -80,7 +80,7 @@ $(function() {
         $("#teamAssignDiv").hide();
         $("#teamListTeamDiv").hide();
 
-        $.get("http://localhost:8080/pm-developer-list").done(function (data) {
+        /*$.get("http://localhost:8080/pm-developer-list").done(function (data) {
 
             console.log(data);
             let divObject = $("#teamListDeveloperDiv");
@@ -89,7 +89,7 @@ $(function() {
 
         }).fail(function (err) {
             console.log("ERR: "+err);
-        });
+        });*/
     });
 
     $("#manageTask").on('click', function () {
@@ -279,7 +279,7 @@ function teamCreateSubmit(){
     $("#teamIDId").val("");
     $("#teamNameId").val("");
 }
-function displayList(listData, divObject, tableHeader, listType) {
+/*function displayList(listData, divObject, tableHeader, listType) {
     let listTable = "";
     listTable += "<table>\n" +
         "    <thead>\n" +
@@ -327,22 +327,26 @@ function displayList(listData, divObject, tableHeader, listType) {
                      "</table>";
     divObject.append(listTable);
 
-}
+}*/
 
 function populateAssignLookup(data, type) {
     let selectOption = "";
 
     for(let i=0; i<data.length; i++){
-        if(type == "Assign Team" && (data[i].taskId != undefined || data[i].taskId != null)) {
-            selectOption += "<option value=\"" + data[i].taskId +"\">" + data[i].taskName + "</option>";
+        if(type == "Assign Team") {
+            selectOption += "<option value=" + data[i].taskId +">" + data[i].taskName + "</option>";
+            console.log("taskId "+data[i].taskId);
+            console.log("taskId "+data[i].taskName);
         }
 
-        else if(type == "Assign Developer" && (data[i].developerId != undefined || data[i].developerId != null)){
-            selectOption += "<option value=\"" + data[i].developerId +"\">" + data[i].devFirstName + "</option>";
+        else if(type == "Assign Developer"){
+            selectOption += "<option value=" + data[i].empId +">" + data[i].fName + "</option>";
+            console.log("taskId "+data[i].empId);
+            console.log("taskId "+data[i].fName);
         }
 
-        else if(type == "Assign Task" && (data[i].teamId != undefined || data[i].teamId != null)){
-            selectOption += "<option value=\"" + data[i].teamId +"\">" + data[i].taskName + "</option>";
+        else if(type == "Assign Task"){
+            selectOption += "<option value=" + data[i].teamId +">" + data[i].taskName + "</option>";
         }
     }
 
@@ -351,12 +355,14 @@ function populateAssignLookup(data, type) {
         let team = $("#taskAssignTaskId");
         task.append(selectOption);
         team.append(selectOption);
+        console.log(selectOption);
     }
     else if(type == "Assign Developer"){
         let task = $("#developerAssignTeamId");
         let team = $("#developerAssignTaskId");
         task.append(selectOption);
         team.append(selectOption);
+        console.log(selectOption);
     }
     else if(type == "Assign Task"){
 
@@ -364,6 +370,7 @@ function populateAssignLookup(data, type) {
         let team = $("#teamAssignTeamId");
         task.append(selectOption);
         team.append(selectOption);
+        console.log(selectOption);
     }
 
 }

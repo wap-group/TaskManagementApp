@@ -17,6 +17,7 @@ import com.wapgroup.model.Catagory;
 import com.wapgroup.model.Status;
 import com.wapgroup.service.ProjectManagerDataService;
 import com.wapgroup.model.Task;
+import org.json.JSONArray;
 
 @WebServlet(name = "ProjectManagerTaskCreateServlet", urlPatterns = {"/pm-task-create"})
 public class ProjectManagerTaskCreateServlet extends HttpServlet {
@@ -63,6 +64,15 @@ public class ProjectManagerTaskCreateServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        // doPost(request, response);
+        ProjectManagerDataService pmds = new ProjectManagerDataService();
+        //List<Task> taskList = pmds.getTaskList();
+        JSONArray taskList = pmds.getList("Select * from task");
+        /*Gson gson = new Gson();
+        String json = gson.toJson(taskList);
+        System.out.println("JSON " + json);*/
+        System.out.println("JSONArray " + taskList.toString());
+        request.getRequestDispatcher("view/projectmanagernew/Task.jsp").forward(request, response);
+        response.getWriter().write(taskList.toString());
     }
 }

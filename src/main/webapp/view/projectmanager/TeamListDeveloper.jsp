@@ -7,19 +7,7 @@
 --%>
 
 <div class="hide" id="teamListDeveloperDiv">
-    <!--<table id="teamListDeveloperId">
-        <thead>
-            <tr>
-                <th>Team Name</th>
-                <th>Developer First Name</th>
-                <th>Developer Last Name</th>
-                <th>Task Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-               <td>Data From DB</td>
-            </tr>
-        </tbody>
-    </table>-->
+    <div class="hide" id="jsgridDeveloperList">
+
+    </div>
 </div>

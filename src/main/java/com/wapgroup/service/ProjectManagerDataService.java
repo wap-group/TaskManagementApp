@@ -2,8 +2,11 @@ package com.wapgroup.service;
 
 import com.wapgroup.database.ProjectManagerDatabaseConnection;
 import com.wapgroup.model.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -133,22 +136,34 @@ public class ProjectManagerDataService {
 
         return  result;
     }
-    public List<Task> getTaskList(){
-        String query = "Select * from task";
-
+    public JSONArray getList(String query){ //getTaskList
+        //String query = "Select * from task";
         ResultSet result = listCommonMethod(query);
         Task t;
+        JSONObject jsonobject = null;
+        JSONArray jarray = new JSONArray();
+
         while(true){
             try {
                 if (!result.next()) break;
-                t = new Task();
+                ResultSetMetaData metaData = result.getMetaData();
+                jsonobject = new JSONObject();
+
+                for (int i = 0; i < metaData.getColumnCount(); i++) {
+
+                    jsonobject.put(metaData.getColumnLabel(i + 1),result.getObject(i + 1));
+
+                }
+
+                jarray.put(jsonobject);
+               /* t = new Task();
 
                 t.setTaskId(result.getString("taskId"));
                 t.settaskName(result.getString("taskName"));
                 t.setDescription(result.getString("taskDescription"));
                 t.setPriority(Integer.parseInt(result.getString("priority")));
-                t.setTaskAssigned(new Date(result.getString("taskAssigned")));
-                t.setDueDate(new Date(result.getString("dueDate")));
+                t.setTaskAssigned(result.getDate("taskAssigned"));
+                t.setDueDate(result.getDate("dueDate"));
                 String status = result.getString("taskStatus");
                 if(status.equals("COMPLETED"))
                     t.setStatus(Status.COMPLETED);
@@ -163,14 +178,15 @@ public class ProjectManagerDataService {
                 else if(category.equals("PERSONAL"))
                     t.setCatagory(Catagory.PERSONAL);
 
-                taskList.add(t);
+                taskList.add(t);*/
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
         }
-        return taskList;
+        return jarray;
+        //return taskList;
     }
 
     public List<Team> getTeamList(){
