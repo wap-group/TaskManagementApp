@@ -40,33 +40,10 @@ $(document).ready(function(){
                         setTimeout(function(){$("#jsgrid").jsGrid("loadData")}, 500);
                     });
                     // return data.promise();
-                },
-                updateItem: function(item){
-                    var data = $.Deferred();
-                    $.ajax({
-                        type: "PUT",
-                        url: "../../ManageUsersServlet",
-                        data: item,
-                        datatype: "json"
-                    }).done(function(response){
-                        setTimeout(function(){$("#jsgrid").jsGrid("loadData")}, 500);
-                    });
-                },
-                deleteItem: function(item){
-                    var data = $.Deferred();
-                    $.ajax({
-                        type: "DELETE",
-                        url: "../../ManageUsersServlet",
-                        data: item,
-                        datatype: "json"
-                    }).done(function(response){
-                        //data.resolve(response);
-                        setTimeout(function(){$("#jsgrid").jsGrid("loadData")}, 500);
-                    });
                 }
             },
             fields: [
-                {name: "empId", title: "EmpId", type: "number", width: "60px", editing: false},
+                {name: "empId", title: "EmpId", type: "number", width: "60px"},
                 {name: "fName", title: "FName", type: "text", validate: "required", width: "60px"},
                 {name: "lName", title: "LName", type: "text", validate: "required", width: "60px"},
                 {name: "pass_word", title: "Pw", type: "text", validate: "required", width: "50px"},
