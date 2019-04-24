@@ -33,7 +33,7 @@ create table if not exists task(
     taskStatus varchar(30) not null,
     taskAssigned date,
     primary key(taskId)
-    );
+);
     
 INSERT INTO `taskmanagerdb`.`users` (`fName`, `lName`, `pass_word`, `email`, `phone`, `roles`)
 VALUES ('dawit', 'asefa', '123', 'dawit@gmail.com', '0912345678', 'admin');

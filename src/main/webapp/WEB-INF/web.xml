@@ -8,7 +8,7 @@
   </welcome-file-list>
   <display-name>Archetype Created Web Application</display-name>
   
-  <servlet>
+  <!--<servlet>
     <servlet-name>PMDeveloperList</servlet-name>
     <servlet-class>com.wapgroup.servlets.ProjectManagerDeveloperListServlet</servlet-class>
   </servlet>
@@ -69,7 +69,7 @@
   <servlet-mapping>
     <servlet-name>PMTeamList</servlet-name>
     <url-pattern>/pm-team-list</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>-->
 </web-app>
 
 

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 class="hide"--%>
 <div id="teamListTeamDiv">
-    <table id="teamListTeamId">
+   <!-- <table id="teamListTeamId">
         <thead>
             <tr>
                 <th>Team ID</th>
@@ -18,5 +18,5 @@ class="hide"--%>
                 <td>Data From DB</td>
             </tr>
         </tbody>
-    </table>
+    </table>-->
 </div>

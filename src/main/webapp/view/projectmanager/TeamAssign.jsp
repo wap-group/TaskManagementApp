@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div class="hide" id="teamAssignDiv">
-    <form action="/pm-team-assign" method="post">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6" id="firstColTaskAssign">
@@ -15,8 +14,8 @@
                             <label>Task: </label>
                         </div>
                         <div class="col-lg-7 col-md-6 col-sm-4">
-                            <select name="category" id="taskAssignId" required>
-                                <option value="">Data From DB</option>
+                            <select name="taskAssignedTeam" id="taskAssignTeamId" required>
+                                <option value="">        </option>
                             </select>
                         </div>
                     </div>
@@ -25,8 +24,8 @@
                             <label>Developer: </label>
                         </div>
                         <div class="col-lg-7 col-md-6 col-sm-4">
-                            <select name="category" id="developerAssignId" required>
-                                <option value="">Data From DB</option>
+                            <select name="developerAssignedTeam" id="developerAssignTeamId" required>
+                                <option value="">        </option>
                             </select>
                         </div>
                     </div>
@@ -38,8 +37,8 @@
                             <label>Team: </label>
                         </div>
                         <div class="col-lg-7 col-md-6 col-sm-4">
-                            <select name="category" id="teamAssignId" required>
-                                <option value="">Data From DB</option>
+                            <select name="teamAssignTeam" id="teamAssignTeamId" required>
+                                <option value="">        </option>
                             </select>
                         </div>
                     </div>
@@ -54,5 +53,4 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>

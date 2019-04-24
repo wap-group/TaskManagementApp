@@ -7,7 +7,6 @@
 --%>
 
 <div class="hide" id="teamCreateDiv">
-    <form action="/pm-team-create" method="post">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6" id="firstColTeam">
@@ -40,5 +39,4 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>

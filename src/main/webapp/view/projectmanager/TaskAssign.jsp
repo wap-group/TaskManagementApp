@@ -7,7 +7,6 @@
 --%>
 
 <div class="hide" id="taskAssignDiv">
-    <form action="/pm-task-assign" method="post">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6" id="firstColTaskAssign">
@@ -16,8 +15,8 @@
                             <label>Task: </label>
                         </div>
                         <div class="col-lg-7 col-md-6 col-sm-4">
-                            <select name="category" id="taskAssignId" required>
-                                <option value="">Data From DB</option>
+                            <select name="taskAssignTask" id="taskAssignTaskId" required>
+                                <option value="">        </option>
                             </select>
                         </div>
                     </div>
@@ -26,8 +25,8 @@
                             <label>Developer: </label>
                         </div>
                         <div class="col-lg-7 col-md-6 col-sm-4">
-                            <select name="category" id="developerAssignId" required>
-                                <option value="">Data From DB</option>
+                            <select name="developerAssignedTask" id="developerAssignTaskId" required>
+                                <option value="">        </option>
                             </select>
                         </div>
                     </div>
@@ -39,8 +38,8 @@
                             <label>Team: </label>
                         </div>
                         <div class="col-lg-7 col-md-6 col-sm-4">
-                            <select name="category" id="teamAssignId">
-                                <option value="">Data From DB</option>
+                            <select name="teamAssignedTask" id="teamAssignTaskId">
+                                <option value="">        </option>
                             </select>
                         </div>
                     </div>
@@ -55,5 +54,4 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>

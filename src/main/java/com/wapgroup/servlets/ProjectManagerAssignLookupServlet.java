@@ -6,26 +6,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.wapgroup.service.ProjectManagerDataService;
-import com.wapgroup.model.Team;
+import com.wapgroup.model.AssignLookup;
 import java.util.List;
 
-@WebServlet(name = "ProjectManagerTeamListServlet" , urlPatterns = {"/pm-team-list"})
-public class ProjectManagerTeamListServlet extends HttpServlet {
+@WebServlet(name = "ProjectManagerAssignLookupServlet", urlPatterns = {"/PM-assign-lookup"})
+public class ProjectManagerAssignLookupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //retrieve task List from projectManagerDataService
+        //get look up data
         ProjectManagerDataService pmds = new ProjectManagerDataService();
-        List<Team> teamList = pmds.getTeamList();
+        Gson gson = new Gson(); //type
+        List<AssignLookup> lookup = null;
+        if(request.getParameter("type").equals("Assign Task"))
+            lookup = pmds.getAssignLookup("task");
+        else if(request.getParameter("type").equals("Assign Team"))
+            lookup = pmds.getAssignLookup("team");
 
-        Gson gson = new Gson();
-        String json = gson.toJson(teamList);
+        else if(request.getParameter("type").equals("Assign Team"))
+            lookup = pmds.getAssignLookup("team");
+
+        String json = gson.toJson(lookup);
+        System.out.println("JSON  " + json);
         response.getWriter().write(json);
     }
 }

@@ -1,17 +1,22 @@
 package com.wapgroup.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
 
     private String teamId;
-    private String name;
+    private String teamName;
     private List<Developer> developerList;
 
     public Team(String teamId, String name, List<Developer> developerList) {
         this.teamId = teamId;
-        this.name = name;
+        this.teamName = name;
         this.developerList = developerList;
+    }
+
+    public Team(){
+        this.developerList = new ArrayList<>();
     }
 
     public String getTeamId() {
@@ -23,11 +28,11 @@ public class Team {
     }
 
     public String getName() {
-        return name;
+        return teamName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.teamName = name;
     }
 
     public List<Developer> getDeveloperList() {

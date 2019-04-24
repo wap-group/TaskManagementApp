@@ -7,7 +7,7 @@
 --%>
 
 <div class="hide" id="teamListDeveloperDiv">
-    <table id="teamListDeveloperId">
+    <!--<table id="teamListDeveloperId">
         <thead>
             <tr>
                 <th>Team Name</th>
@@ -21,5 +21,5 @@
                <td>Data From DB</td>
             </tr>
         </tbody>
-    </table>
+    </table>-->
 </div>
