@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,11 +27,19 @@ public class DeveloperServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        JSONArray ar = DeveloperService.getTaskJSON();
-        System.out.println("*** " + ar.toString());
-        response.getWriter().write(ar.toString());
+        HttpSession session = request.getSession(false);
+        if(session == null){
+            response.setContentType("text/html");
+            response.sendRedirect("/TaskManagementApp_war_exploded/view/dev-page/dev-page.jsp");
+        }else{
+            String email = (String)session.getAttribute("email");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            JSONArray ar = DeveloperService.getTaskJSON(email);
+            System.out.println("*** " + ar.toString());
+            response.getWriter().write(ar.toString());
+        }
+
 
     }
 

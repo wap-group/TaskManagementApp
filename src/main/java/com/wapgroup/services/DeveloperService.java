@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class DeveloperService {
 
-    public static JSONArray getTaskJSON(){
+    public static JSONArray getTaskJSON(String email){
         JSONArray jarray = new JSONArray();
         DatabaseConnection connection = null;
         PreparedStatement pst = null;
@@ -27,7 +27,8 @@ public class DeveloperService {
             connection = DatabaseConnection.getInstance();
             //pst = connection.con.prepareStatement("SELECT * FROM task");
             pst = connection.con.prepareStatement("SELECT taskId, taskName, dueDate, priority," +
-                    "category, taskDescription, taskStatus, taskAssigned FROM task");
+                    "category, taskDescription, taskStatus, taskAssigned FROM task WHERE devEmail=?");
+            pst.setString(1, email);
             rs = pst.executeQuery();
             JSONObject jsonobject = null;
 
