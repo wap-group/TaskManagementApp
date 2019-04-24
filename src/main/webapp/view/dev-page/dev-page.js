@@ -55,7 +55,7 @@ $(document).ready(function(){
         pageSize: 10,
         controller: {
             loadData: function(filter) {
-                var d = $.Deferred();
+                let d = $.Deferred();
 
                 // server-side filtering
                 $.ajax({
@@ -74,17 +74,6 @@ $(document).ready(function(){
 
                 return d.promise();
             },
-           /* loadData: function(filter){
-                let data = $.Deferred();
-                $.ajax({
-                    type: "GET",
-                    url: "../../DeveloperServlet",
-                    datatype: "json"
-                }).done(function(response){
-                    data.resolve(response);
-                });
-                return data.promise();
-            },*/
 
             insertItem: function (item) {
                 let data = $.Deferred();
