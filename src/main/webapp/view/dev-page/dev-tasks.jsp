@@ -1,17 +1,15 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.wapgroup.model.User" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: Fisseha
-  Date: 4/20/2019
-  Time: 9:58 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.wapgroup.model.Task" %>
+<%@ page import="com.wapgroup.model.Catagory" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="com.wapgroup.model.Status" %>
+<%@ page import="org.json.JSONObject" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,18 +17,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles/dev-tasks.css" media="screen" />
-    <script src="scripts/jquery-2.0.3.js"></script>
-    <script src="scripts/jquery-tmpl.js"></script>
-    <script src="scripts/jquery.validate.js"></script>
-    <script src="scripts/jquery-serialization.js"></script>
-    <script src="scripts/dev-tasks-controller.js"></script>
-    <script src="scripts/date.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type = "text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" type = "text/javascript"></script>
+    <script src="scripts/jquery.validate.js" type = "text/javascript"></script>
+    <script src="scripts/dev-tasks.js" type = "text/javascript"></script>
+    <script src="scripts/jquery-3.3.1.js" type = "text/javascript"></script>
+    <script src="scripts//jquery.dataTables.min.js" type = "text/javascript"></script>
+    <script src = "scripts/dataTables.bootstrap4.min.js" type = "text/javascript"></script>
 </head>
 <body>
-
+<%
+    HttpSession s = request.getSession(false);
+    if(s.getAttribute("phone") == null){
+        response.sendRedirect("/TaskManagementApp_war_exploded/login.jsp");
+    }
+%>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -64,43 +66,68 @@
                 <span>Task list</span>
             </header>
             <hr>
-            <main  id="taskPage">
-
-                <section>
-                    <form action = "DevPage" method = "GET" >
+            <main  id="taskPage ">
+                <div id = "selectStatus" style="display: none;">
+                    <form id = "statusForm">
+                        <label> Select Status <select id = "selector">
+                            <option selected value = "None" va> None </option>
+                            <option value = "Not started"> Not started </option>
+                            <option value = "In progress">In progress </option>
+                            <option value = "Completed"> Completed </option>
+                        </select> </label>
+                    </form>
                     <p>
-                        <button id = "viewBtn" type = "submit"> View Task</button>
+                        <button id = "saveStatus" type = "buttom"> Save Status</button>
                     </p>
-
-                    <table id="userTasks">
+                </div>
+                <section>
+                    <div style = "display: inline;">
+                        <button id = "sortTable" type = "buttom"> SortBy Priority</button>
+                        <button id = "filterTable" type = "buttom"> Filter </button>
+                    </div>
+                    <table class = "sortable" id="userTasks">
                         <colgroup>
                             <col width="10%">
-                            <col width="40%">
-                            <col width="10%">
+                            <col width="25%">
                             <col width="15%">
                             <col width="10%">
-                            <col width="15%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+
                         </colgroup>
+                        <thead>
                         <tr>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Due</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Status</th>
+                            <th style="text-align: center;">Task Id</th>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Category</th>
+                            <th style="text-align: center;">Due Date</th>
+                            <th style="text-align: center;"> Date Assigned</th>
+                            <th style="text-align: center;">Priority</th>
+                            <th style="text-align: center;">Status</th>
+                            <th style="text-align: center;">Edit Status</th>
                         </tr>
-                        <tr>
+                        </thead>
 
-                            <c:forEach items = "${users}" var = "user">
-                            <td> ${user.getfName()}</td> <td> ${user.getlName()}</td>
-                                <td> ${user.getEmpId()}</td> <td> ${user.getEmail()}</td>
-                                <td> ${user.getPhone()}</td>  <td> Edit Status</td>
-                                </c:forEach>
-
-                        </tr>
+                        <tbody>
+                        <c:forEach var = "task" items = "${tasks}">
+                            <tr >
+                                <td> ${task.getTaskId()} </td>
+                                <td> ${task.gettaskName()} </td>
+                                <td> ${task.getCatagory().toString()} </td>
+                                <td> ${task.getDueDate()} </td>
+                                <td> ${task.getTaskAssigned()} </td>
+                                <td> ${task.getPriority()} </td>
+                                <td class = "status" > ${task.getStatus().toString()} </td>
+                                <td>
+                                    <input type = "button" class = "editStatus" style = "width: 100%; margin: 0;"
+                                           value = "Edit"></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
                     </table>
-                    </form>
+
                 </section>
             </main>
 
@@ -114,47 +141,6 @@
 </div>
 
 </body>
-<!--
-<script>
-    $(document).ready(function () {
-        $("#viewBtn").click(function () {
-            console.log("connecting to servlet ...");
-            $.get("DevPage", {"tasks": "data"}).done(function (data) {
-                console.log(data);
-                $.each(data, function (index, value) {
-                    $("#userTable").append("<tr data-id="+value.id+">" +
-                        "<td>"+value.id+"</td>" +
-                        "<td>"+value.username+"</td>" +
-                        "<td>"+value.email+"</td>" +
-                        "</tr>");
-                });
-                $("#userTable").show();
-            }).fail(function (err) {
-                console.error(err);
-            });
-        });
 
-        $("#userTable").on('click', 'tr', function(){
-            var self = $(this);
-            var userId=self.attr("data-id");
-            console.log(userId);
-            $.get("http://jsonplaceholder.typicode.com/posts?userId="+userId)
-                .done(function(data){
-
-                    var tableStr = '<tr><td colspan="3"><table><tr><th>ID</th><th>Title</th><th>Body</th></tr>';
-
-                    $.each(data, function (index, value) {
-                        tableStr += '<tr data-id="+value.id+"><td>"+value.id+"</td><td>"+value.title+"</td><td>"+value.body+"</td></tr>';
-                    });
-                    tableStr +='</table></td></tr>';
-                    self.append(tableStr);
-                }).fail(function () {
-
-            });
-        });
-
-
-    });
-</script> -->
 </html>
 

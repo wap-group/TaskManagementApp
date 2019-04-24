@@ -12,13 +12,14 @@ public class Task {
     private Catagory catagory;
     private String description;
     private Status status;
+    private String devEmail;
     private Date taskAssigned;
 
     public Task(){}
 
     public Task(String taskId, String taskName, Date dueDate,
                 int priority, Catagory catagory, String description,
-                Status status, Date taskAssigned)
+                Status status, String devEmail, Date taskAssigned)
     {
         this.taskId = taskId;
         this.taskName = taskName;
@@ -27,6 +28,7 @@ public class Task {
         this.catagory = catagory;
         this.description = description;
         this.status = status;
+        this.devEmail = devEmail;
         this.taskAssigned = taskAssigned;
     }
 
@@ -52,6 +54,14 @@ public class Task {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public void setDevEmail(String devEmail) {
+        this.devEmail = devEmail;
+    }
+
+    public String getDevEmail() {
+        return devEmail;
     }
 
     public int getPriority() {
@@ -92,5 +102,19 @@ public class Task {
 
     public void setTaskAssigned(Date taskAssigned) {
         this.taskAssigned = taskAssigned;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId=" + taskId +
+                ", taskName='" + taskName + '\'' +
+                ", dueDate=" + dueDate +
+                ", priority=" + priority +
+                ", catagory=" + catagory +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", taskAssigned=" + taskAssigned +
+                '}';
     }
 }

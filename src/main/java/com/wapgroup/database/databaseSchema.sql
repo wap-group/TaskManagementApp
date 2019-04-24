@@ -40,5 +40,16 @@ VALUES ('dawit', 'asefa', '123', 'dawit@gmail.com', '0912345678', 'admin');
 
 INSERT INTO `taskmanagerdb`.`users` (`fName`, `lName`, `pass_word`, `email`, `phone`, `roles`)
 VALUES ('fessiha', 'atsbeha', '123', 'fesiha@gmail.com', '0932345673', 'project manager');
-    
+
+INSERT INTO `taskmanagerdb`.`address` (`empId`, `zipcode`, `street`, `city`, `state`, `lat`, `longtiude`)
+VALUES ('1', '3456', 'Mt. Pleasant', 'Fairfield', 'IA', '3.4567', '2.4455');
+
+INSERT INTO `taskmanagerdb`.`address` (`empId`, `zipcode`, `street`, `city`, `state`, `lat`, `longtiude`)
+VALUES ('2', '56789', 'Droid', 'FairField', 'IA', '3.456', '2.123');
+
+INSERT INTO `taskmanagerdb`.`address` (`empId`, `zipcode`, `street`, `city`, `state`, `lat`, `longtiude`)
+VALUES ('3', '3478', 'Almond', 'FairField', 'IA', '3.675', '2.145');
+
+
+
     

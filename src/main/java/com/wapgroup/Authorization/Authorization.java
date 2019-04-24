@@ -26,7 +26,7 @@ public class Authorization {
                                                     "WHERE email = '" + email + "' " +
                                                     "AND pass_word = '" + pw + "'");
                 if(rs.isBeforeFirst()){
-
+                    System.out.println("record found.");
                     rs.next();
                     user = getUserType(rs.getString("roles"));
                     user.setEmpId(Integer.parseInt(rs.getString("empId")));
